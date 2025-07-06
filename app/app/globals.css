@@ -1,0 +1,92 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 210 40% 8%;
+    --foreground: 210 20% 90%;
+    --card: 210 40% 8%;
+    --card-foreground: 210 20% 90%;
+    --popover: 210 40% 8%;
+    --popover-foreground: 210 20% 90%;
+    --primary: 142 70% 45%;
+    --primary-foreground: 210 20% 98%;
+    --secondary: 210 20% 15%;
+    --secondary-foreground: 210 20% 90%;
+    --muted: 210 20% 15%;
+    --muted-foreground: 210 20% 65%;
+    --accent: 210 20% 15%;
+    --accent-foreground: 210 20% 90%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 20% 98%;
+    --border: 210 20% 20%;
+    --input: 210 20% 20%;
+    --ring: 142 70% 45%;
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+.hero-gradient {
+  background: linear-gradient(135deg, hsl(var(--background)) 0%, hsl(210 30% 12%) 100%);
+}
+
+.card-hover {
+  transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px hsla(var(--background), 0.4);
+}
+
+.parallax {
+  transform: translateZ(0);
+}
+
+@keyframes count-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.count-up {
+  animation: count-up 0.6s ease-out;
+}
+
+.testimonial-card {
+  backdrop-filter: blur(10px);
+  background: hsla(var(--card), 0.8);
+  border: 1px solid hsla(var(--border), 0.5);
+}
+
+.cta-button {
+  background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(142 80% 35%) 100%);
+  transition: all 0.3s ease;
+}
+
+.cta-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px hsla(var(--primary), 0.4);
+}
+
+.section-separator {
+  background: linear-gradient(90deg, transparent 0%, hsl(var(--border)) 50%, transparent 100%);
+  height: 1px;
+  width: 100%;
+}
