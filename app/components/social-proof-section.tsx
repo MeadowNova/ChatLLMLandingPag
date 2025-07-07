@@ -9,15 +9,13 @@ import Image from 'next/image'
 const testimonials = [
   {
     name: 'Sarah Chen',
-    role: 'Senior ML Engineer at Google',
     image: 'https://i.pinimg.com/originals/53/57/13/535713a363b47b850760eddcb7cfb649.jpg',
     rating: 5,
     content: 'This course completely transformed my understanding of ChatLLM. The AI assistant feature is incredible - it felt like having a personal mentor available 24/7. I landed a senior role at Google within 3 months of completing the course.',
-    highlight: 'Landed Google role in 3 months'
+    highlight: 'Landed tech role in 3 months'
   },
   {
     name: 'Marcus Johnson',
-    role: 'AI Research Scientist at Microsoft',
     image: 'https://www.neilsonreeves.co.uk/wp-content/uploads/diverse-corporate-headshot-16.jpg',
     rating: 5,
     content: 'The hands-on projects are outstanding. Each module builds perfectly on the last, and the Abacus.AI platform integration gave me real-world skills that directly apply to my current research work. Highly recommend!',
@@ -25,11 +23,10 @@ const testimonials = [
   },
   {
     name: 'David Rodriguez',
-    role: 'Lead Developer at Google',
     image: 'https://heroshotphotography.com/wp-content/uploads/2023/03/male-linkedin-corporate-headshot-on-white-square-1024x1024.jpg',
     rating: 5,
     content: 'I\'ve taken many AI courses, but none come close to this level of depth and practical application. The advanced training techniques module alone was worth the entire course fee. Now leading ChatLLM projects at OpenAI.',
-    highlight: 'Now leading projects at OpenAI'
+    highlight: 'Now leading projects at a top AI company'
   }
 ]
 
@@ -135,9 +132,7 @@ export function SocialProofSection() {
                   <div className="font-semibold text-foreground">
                     {testimonial.name}
                   </div>
-                  <div className="text-sm text-muted-foreground">
-                    {testimonial.role}
-                  </div>
+                  {/* Removed testimonial.role to prevent undefined error */}
                 </div>
               </div>
             </motion.div>

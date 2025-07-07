@@ -15,7 +15,7 @@ interface EmailSubscriptionFormProps {
 }
 
 export function EmailSubscriptionForm({ 
-  placeholder = "Enter your email", 
+  placeholder = "JOIN THE WAITLIST TODAY!", 
   source = "general",
   className 
 }: EmailSubscriptionFormProps) {
@@ -30,7 +30,7 @@ export function EmailSubscriptionForm({
     if (!email || !email.includes('@')) {
       toast({
         title: "Invalid email",
-        description: "Please enter a valid email address.",
+        description: "JOIN THE WAITLIST TODAY! Please enter a valid email address.",
         variant: "destructive",
       })
       return

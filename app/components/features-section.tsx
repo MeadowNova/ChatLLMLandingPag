@@ -8,7 +8,7 @@ import Image from 'next/image'
 
 const features = [
   {
-    title: 'Custom AI Assistant',
+    title: 'Custom AI Assistant (Of Course We Had To...This Is A Custom AI Chatbot Course!',
     description: 'Your personal AI mentor available 24/7 to answer questions, provide code reviews, and guide you through complex concepts. Get instant feedback and personalized learning paths.',
     image: 'https://cdn.abacus.ai/images/39885420-815e-4782-a498-5748f34700cd.png',
     icon: Bot,

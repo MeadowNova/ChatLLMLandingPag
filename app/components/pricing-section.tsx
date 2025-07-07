@@ -9,13 +9,12 @@ import { Check, Star, Clock, Award, Users, Infinity } from 'lucide-react'
 
 const features = [
   'Complete 5-module curriculum (45+ hours)',
-  '69 HD video lessons',
+  '69 HD video lessons (Coming Soon)',
   '19 hands-on projects with real datasets',
   'Custom AI assistant for personalized guidance',
   'Abacus.AI platform access and training',
   'Downloadable resources and code templates',
   'Expert community access',
-  'Industry-recognized completion certificate',
   'Lifetime access to all materials',
   'Future course updates included',
   '30-day money-back guarantee',
