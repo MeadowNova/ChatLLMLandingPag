@@ -1,4 +1,3 @@
-
 'use client'
 
 import { motion } from 'framer-motion'
@@ -10,7 +9,7 @@ const features = [
   {
     title: 'Custom AI Assistant (Of Course We Had To...This Is A Custom AI Chatbot Course!',
     description: 'Your personal AI mentor available 24/7 to answer questions, provide code reviews, and guide you through complex concepts. Get instant feedback and personalized learning paths.',
-    image: 'https://cdn.abacus.ai/images/39885420-815e-4782-a498-5748f34700cd.png',
+    image: '/feature-1.png',
     icon: Bot,
     benefits: [
       'Instant answers to your questions',
@@ -102,7 +101,10 @@ export function FeaturesSection() {
             >
               {/* Image */}
               <div className="flex-1 max-w-lg">
-                <div className="relative aspect-video bg-muted rounded-lg overflow-hidden card-hover group">
+                <div
+                  className="relative bg-muted rounded-lg overflow-hidden card-hover group"
+                  style={{ aspectRatio: '16/9', width: '100%', minHeight: '250px' }}
+                >
                   <Image
                     src={feature.image}
                     alt={feature.title}
