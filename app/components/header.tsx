@@ -26,11 +26,17 @@ export function Header() {
   }
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      isScrolled ? 'bg-background/80 backdrop-blur-md border-b border-border/50' : 'bg-transparent'
-    }`}>
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+    <>
+      {/* Price Shock Banner - Top of Page */}
+      <div className="w-full bg-primary/10 border-b border-primary/30 py-3 px-2 text-center z-[100] relative">
+        <span className="block text-lg sm:text-xl font-bold text-primary mb-1"></span>
+        <span className="block font-semibold text-primary"><span className="font-extrabold text-2xl" style={{ color: '#ef4444' }}></span> <span className="text-foreground font-semibold"></span></span>
+      </div>
+      <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled ? 'bg-background/80 backdrop-blur-md border-b border-border/50' : 'bg-transparent'
+      }`}>
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex items-center space-x-2">
             <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
@@ -53,12 +59,7 @@ export function Header() {
             >
               Features
             </button>
-            <button
-              onClick={() => scrollToSection('pricing')}
-              className="text-muted-foreground hover:text-foreground transition-colors"
-            >
-              Pricing
-            </button>
+            {/* Pricing button removed */}
             <button
               onClick={() => scrollToSection('faq')}
               className="text-muted-foreground hover:text-foreground transition-colors"
@@ -73,7 +74,7 @@ export function Header() {
               onClick={() => scrollToSection('pricing')}
               className="cta-button"
             >
-              Get Instant Access
+              Join The Waitlist Now and receive exclusive perks and discounts upon launch
             </Button>
           </div>
 
@@ -102,12 +103,7 @@ export function Header() {
               >
                 Features
               </button>
-              <button
-                onClick={() => scrollToSection('pricing')}
-                className="block px-3 py-2 text-muted-foreground hover:text-foreground transition-colors w-full text-left"
-              >
-                Pricing
-              </button>
+              {/* Pricing button removed from mobile menu */}
               <button
                 onClick={() => scrollToSection('faq')}
                 className="block px-3 py-2 text-muted-foreground hover:text-foreground transition-colors w-full text-left"
@@ -119,13 +115,14 @@ export function Header() {
                   onClick={() => scrollToSection('pricing')}
                   className="cta-button w-full"
                 >
-                  Get Instant Access
+                  Join The Waitlist Now and receive exclusive perks and discounts upon launch
                 </Button>
               </div>
             </div>
           </div>
         )}
       </div>
-    </header>
+      </header>
+    </>
   )
 }

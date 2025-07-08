@@ -1,163 +1,46 @@
 
 'use client'
 
-import { motion } from 'framer-motion'
-import { useInView } from 'react-intersection-observer'
-import { Star, Quote } from 'lucide-react'
+import { ZoomIn } from 'lucide-react'
 import Image from 'next/image'
 
-const testimonials = [
-  {
-    name: 'Sarah Chen',
-    image: 'https://i.pinimg.com/originals/53/57/13/535713a363b47b850760eddcb7cfb649.jpg',
-    rating: 5,
-    content: 'This course completely transformed my understanding of ChatLLM. The AI assistant feature is incredible - it felt like having a personal mentor available 24/7. I landed a senior role at Google within 3 months of completing the course.',
-    highlight: 'Landed tech role in 3 months'
-  },
-  {
-    name: 'Marcus Johnson',
-    image: 'https://www.neilsonreeves.co.uk/wp-content/uploads/diverse-corporate-headshot-16.jpg',
-    rating: 5,
-    content: 'The hands-on projects are outstanding. Each module builds perfectly on the last, and the Abacus.AI platform integration gave me real-world skills that directly apply to my current research work. Highly recommend!',
-    highlight: 'Perfect progression & real-world skills'
-  },
-  {
-    name: 'David Rodriguez',
-    image: 'https://heroshotphotography.com/wp-content/uploads/2023/03/male-linkedin-corporate-headshot-on-white-square-1024x1024.jpg',
-    rating: 5,
-    content: 'I\'ve taken many AI courses, but none come close to this level of depth and practical application. The advanced training techniques module alone was worth the entire course fee. Now leading ChatLLM projects at OpenAI.',
-    highlight: 'Now leading projects at a top AI company'
-  }
-]
-
-const stats = [
-  { value: '900+', label: 'Students Enrolled', description: 'From 50+ countries worldwide' },
-  { value: '4.9/5', label: 'Average Rating', description: 'Based on 500+ reviews' },
-  { value: '89%', label: 'Career Advancement', description: 'Promotion or new role within 6 months' },
-  { value: '95%', label: 'Completion Rate', description: 'Industry-leading engagement' }
-]
-
 export function SocialProofSection() {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1
-  })
-
   return (
-    <section className="py-20 bg-secondary/20" ref={ref}>
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
-            Trusted by AI Professionals Worldwide
+    <section className="py-24 sm:py-32 bg-background">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center">
+        <div className="max-w-3xl text-center">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground">
+            A Glimpse Inside Your Learning Hub
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Join thousands of successful students who have transformed their careers with our ChatLLM course. 
-            Here's what they're saying about their experience.
+          <p className="mt-6 text-lg leading-8 text-muted-foreground">
+            Our intuitive dashboard is designed to guide you from novice to
+            expert. See for yourself how we structure your learning for success.
           </p>
-        </motion.div>
-
-        {/* Stats Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16"
-        >
-          {stats.map((stat, index) => (
-            <div key={stat.label} className="text-center">
-              <div className="text-3xl sm:text-4xl font-bold text-primary mb-2 count-up">
-                {stat.value}
-              </div>
-              <div className="text-lg font-semibold text-foreground mb-1">
-                {stat.label}
-              </div>
-              <div className="text-sm text-muted-foreground">
-                {stat.description}
-              </div>
-            </div>
-          ))}
-        </motion.div>
-
-        {/* Testimonials */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {testimonials.map((testimonial, index) => (
-            <motion.div
-              key={testimonial.name}
-              initial={{ opacity: 0, y: 30 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.4 + index * 0.1 }}
-              className="testimonial-card rounded-lg p-6 card-hover"
-            >
-              {/* Quote Icon */}
-              <div className="mb-4">
-                <Quote className="w-8 h-8 text-primary/50" />
-              </div>
-
-              {/* Content */}
-              <p className="text-foreground mb-6 leading-relaxed">
-                "{testimonial.content}"
-              </p>
-
-              {/* Highlight */}
-              <div className="bg-primary/10 border border-primary/20 rounded-lg p-3 mb-6">
-                <p className="text-primary font-medium text-sm">
-                  ✨ {testimonial.highlight}
-                </p>
-              </div>
-
-              {/* Rating */}
-              <div className="flex items-center space-x-1 mb-4">
-                {[...Array(testimonial.rating)].map((_, i) => (
-                  <Star key={i} className="w-4 h-4 text-yellow-400 fill-current" />
-                ))}
-              </div>
-
-              {/* Author */}
-              <div className="flex items-center space-x-3">
-                <div className="relative w-12 h-12 rounded-full bg-muted">
-                  <Image
-                    src={testimonial.image}
-                    alt={testimonial.name}
-                    fill
-                    className="object-cover rounded-full"
-                  />
-                </div>
-                <div>
-                  <div className="font-semibold text-foreground">
-                    {testimonial.name}
-                  </div>
-                  {/* Removed testimonial.role to prevent undefined error */}
-                </div>
-              </div>
-            </motion.div>
-          ))}
         </div>
 
-        {/* Trust Indicators */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.8 }}
-          className="text-center mt-16"
-        >
-          <div className="bg-primary/5 border border-primary/20 rounded-lg p-8 max-w-4xl mx-auto">
-            <h3 className="text-xl font-bold text-foreground mb-4">
-              Industry Recognition & Partnerships
-            </h3>
-            <div className="flex flex-wrap justify-center items-center gap-8 text-sm text-muted-foreground">
-              <span>✓ Abacus.AI Certified Curriculum</span>
-              <span>✓ Industry Expert Instructors</span>
-              <span>✓ 30-Day Money-Back Guarantee</span>
-              <span>✓ Lifetime Access & Updates</span>
+        <div className="mt-16 w-full max-w-5xl group">
+          <a
+            href="/demo-shot.png"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block relative rounded-xl overflow-hidden border-2 border-border/20 shadow-2xl shadow-primary/10 transition-all duration-300 ease-in-out group-hover:shadow-primary/20 group-hover:scale-[1.02] group-hover:border-primary/30"
+          >
+            <Image
+              src="/demo-shot.png"
+              alt="Course Dashboard Preview"
+              width={1200}
+              height={794}
+              className="w-full h-auto object-cover"
+              priority
+            />
+            <div className="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <div className="p-4 bg-background/80 backdrop-blur-sm rounded-full text-foreground flex items-center gap-2">
+                <ZoomIn className="w-6 h-6" />
+                <span>Click to expand</span>
+              </div>
             </div>
-          </div>
-        </motion.div>
+          </a>
+        </div>
       </div>
     </section>
   )

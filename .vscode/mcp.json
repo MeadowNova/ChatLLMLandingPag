@@ -1,0 +1,9 @@
+{
+  "servers": {
+    "copilot-mcp-server": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["/workspaces/ChatLLMLandingPag/mcp-server/build/index.js"]
+    }
+  }
+}

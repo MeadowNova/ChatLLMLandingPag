@@ -24,10 +24,6 @@ const faqs = [
     answer: 'Unlike scattered free resources, our course offers: (1) Structured curriculum designed by AI experts, (2) Custom AI assistant for 24/7 personalized guidance, (3) Hands-on projects with real datasets, (4) Abacus.AI platform access worth $500/month, (5) Expert community and mentorship, (6) Industry-recognized certification, and (7) Lifetime updates.'
   },
   {
-    question: 'Will I get a certificate upon completion?',
-    answer: 'Yes! You\'ll receive an industry-recognized completion certificate from Abacus.AI. This certificate demonstrates your proficiency in ChatLLM technologies and is valued by employers in the AI field. Many of our graduates have used this certificate to land roles at top tech companies.'
-  },
-  {
     question: 'What if I\'m not satisfied with the course?',
     answer: 'We offer a 30-day money-back guarantee. If you\'re not completely satisfied within the first 30 days, we\'ll refund your full payment, no questions asked. We\'re confident in our course quality - over 95% of our students complete the course and rate it 4.5+ stars.'
   },

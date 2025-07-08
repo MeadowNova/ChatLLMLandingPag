@@ -1,4 +1,3 @@
-
 import { Header } from '@/components/header'
 import { HeroSection } from '@/components/hero-section'
 import { ValuePropositionSection } from '@/components/value-proposition-section'
@@ -9,6 +8,7 @@ import { PricingSection } from '@/components/pricing-section'
 import { FAQSection } from '@/components/faq-section'
 import { FinalCTASection } from '@/components/final-cta-section'
 import { Footer } from '@/components/footer'
+import { ChatbotPricingHook } from '@/components/chatbot-pricing-hook'
 
 export default function HomePage() {
   return (
@@ -18,6 +18,7 @@ export default function HomePage() {
       <ValuePropositionSection />
       <CourseOverviewSection />
       <SocialProofSection />
+      <ChatbotPricingHook />
       <FeaturesSection />
       <PricingSection />
       <FAQSection />

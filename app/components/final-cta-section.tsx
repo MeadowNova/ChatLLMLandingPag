@@ -1,4 +1,3 @@
-
 'use client'
 
 import { motion } from 'framer-motion'
@@ -75,7 +74,7 @@ export function FinalCTASection() {
               size="lg" 
               className="cta-button text-lg px-12 py-4 h-auto"
             >
-              Get Instant Access - $497
+              Join The Waitlist Now and receive exclusive perks and discounts upon launch
               <ArrowRight className="ml-2 w-5 h-5" />
             </Button>
             <p className="text-xs text-muted-foreground mt-3">
@@ -102,12 +101,27 @@ export function FinalCTASection() {
             transition={{ duration: 0.6, delay: 0.6 }}
             className="bg-card border border-border rounded-lg p-6 max-w-lg mx-auto"
           >
+            <div className="mb-4 p-3 bg-primary/10 border border-primary/30 rounded text-center font-semibold text-lg text-primary">
+              What "Experts" on Fiverr Charge:<br />
+              <span className="text-2xl text-foreground font-bold">$18,000+ for Custom AI Chatbots</span>
+            </div>
             <h3 className="text-lg font-semibold text-foreground mb-3">
               Join the Waitlist for Future Courses
             </h3>
             <p className="text-sm text-muted-foreground mb-4">
               Get notified about new AI courses, exclusive discounts, and free ChatLLM resources.
             </p>
+            <div className="mb-6 p-4 bg-primary/5 border border-primary/20 rounded-lg text-center">
+              <p className="text-base text-foreground font-semibold mb-2">
+                This price arbitrage opportunity exists because most business owners don't know how simple chatbot building has become. But that's changing fast.
+              </p>
+              <p className="text-base text-muted-foreground mb-2">
+                Every day, more people discover they can build professional chatbots for $20/month instead of paying $18,000.
+              </p>
+              <p className="text-base text-muted-foreground">
+                Six months from now, this won't be a secret anymore. The question is: do you want to be ahead of the curve or behind it?
+              </p>
+            </div>
             <EmailSubscriptionForm 
               placeholder="Enter your email to join waitlist"
               source="final_cta"
