@@ -102,30 +102,31 @@ export function FinalCTASection() {
             className="bg-card border border-border rounded-lg p-6 max-w-lg mx-auto"
           >
             <div className="mb-4 p-3 bg-primary/10 border border-primary/30 rounded text-center font-semibold text-lg text-primary">
-              What "Experts" on Fiverr Charge:<br />
-              <span className="text-2xl text-foreground font-bold">$18,000+ for Custom AI Chatbots</span>
+              🎯 Business-in-a-Box System<br />
+              <span className="text-2xl text-foreground font-bold">Complete SMB Chatbot Agency</span>
             </div>
             <h3 className="text-lg font-semibold text-foreground mb-3">
-              Join the Waitlist for Future Courses
+              Secure Your Exclusive Launch Access
             </h3>
             <p className="text-sm text-muted-foreground mb-4">
-              Get notified about new AI courses, exclusive discounts, and free ChatLLM resources.
+              Get early access to the complete system, exclusive bonuses, and special launch pricing.
             </p>
             <div className="mb-6 p-4 bg-primary/5 border border-primary/20 rounded-lg text-center">
               <p className="text-base text-foreground font-semibold mb-2">
-                This price arbitrage opportunity exists because most business owners don't know how simple chatbot building has become. But that's changing fast.
+                The SMB market is hungry for AI solutions, but most business owners don't know where to start.
               </p>
               <p className="text-base text-muted-foreground mb-2">
-                Every day, more people discover they can build professional chatbots for $20/month instead of paying $18,000.
+                You'll have the complete system to serve this massive market with confidence and expertise.
               </p>
               <p className="text-base text-muted-foreground">
-                Six months from now, this won't be a secret anymore. The question is: do you want to be ahead of the curve or behind it?
+                From technical skills to client acquisition - everything you need to build a profitable chatbot agency.
               </p>
             </div>
-            <EmailSubscriptionForm 
-              placeholder="Enter your email to join waitlist"
+            <EmailSubscriptionForm
+              placeholder="Enter your email address"
               source="final_cta"
-              className="flex gap-2"
+              enhanced={true}
+              className="w-full"
             />
           </motion.div>
 

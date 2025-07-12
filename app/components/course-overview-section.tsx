@@ -8,72 +8,72 @@ import { CheckCircle, Clock, FileText, Video } from 'lucide-react'
 const modules = [
   {
     number: '01',
-    title: 'LLM Fundamentals',
-    description: 'Understanding Large Language Models, their architecture, and core concepts. Learn the foundations of transformer models and neural networks.',
-    duration: '8 hours',
+    title: 'Foundation & Strategy',
+    description: 'Master the fundamentals of AI chatbots and develop your SMB market strategy. Learn to identify opportunities and position yourself as the go-to expert.',
+    duration: '9 hours',
     lessons: 12,
     projects: 3,
     highlights: [
-      'Transformer Architecture Deep Dive',
-      'Attention Mechanisms Explained',
-      'Neural Network Fundamentals',
-      'History and Evolution of LLMs'
+      'SMB Market Analysis & Opportunities',
+      'Chatbot Fundamentals for Business',
+      'Competitive Positioning Strategy',
+      'Value Proposition Development'
     ]
   },
   {
     number: '02',
-    title: 'ChatLLM Implementation',
-    description: 'Hands-on implementation of ChatLLM systems using modern frameworks. Build your first conversational AI from scratch.',
-    duration: '10 hours',
+    title: 'Technical Mastery',
+    description: 'Build professional chatbots using Abacus.AI and other accessible platforms. Master the technical skills needed to deliver quality solutions.',
+    duration: '12 hours',
     lessons: 15,
     projects: 4,
     highlights: [
-      'Building Chat Interfaces',
-      'Prompt Engineering Mastery',
-      'Context Management',
-      'Response Generation Techniques'
+      'Abacus.AI Platform Mastery',
+      'No-Code Chatbot Development',
+      'Integration & API Management',
+      'Testing & Quality Assurance'
     ]
   },
   {
     number: '03',
-    title: 'Advanced Training Techniques',
-    description: 'Master fine-tuning, transfer learning, and optimization strategies for ChatLLM models in production environments.',
-    duration: '12 hours',
-    lessons: 18,
-    projects: 5,
+    title: 'Integration & Automation',
+    description: 'Connect chatbots to business systems and create automated workflows. Learn to deliver comprehensive solutions that drive real ROI.',
+    duration: '10 hours',
+    lessons: 13,
+    projects: 4,
     highlights: [
-      'Fine-tuning Strategies',
-      'Transfer Learning',
-      'Model Optimization',
-      'Performance Monitoring'
+      'CRM & Database Integration',
+      'Payment Processing Setup',
+      'Workflow Automation',
+      'Multi-Channel Deployment'
     ]
   },
   {
     number: '04',
-    title: 'Real-World Applications',
-    description: 'Deploy ChatLLM systems in production with best practices for scalability, security, and performance optimization.',
-    duration: '9 hours',
-    lessons: 14,
-    projects: 4,
+    title: 'Client Management',
+    description: 'Master the business side: finding clients, closing deals, and delivering exceptional service. Build a sustainable chatbot agency.',
+    duration: '8 hours',
+    lessons: 11,
+    projects: 3,
     highlights: [
-      'Production Deployment',
-      'Scalability Patterns',
-      'Security Best Practices',
-      'Monitoring and Analytics'
+      'Lead Generation Strategies',
+      'Sales Process & Closing Techniques',
+      'Project Management Systems',
+      'Client Onboarding & Support'
     ]
   },
   {
     number: '05',
-    title: 'Abacus.AI Platform Mastery',
-    description: 'Master the Abacus.AI platform for enterprise-grade ChatLLM development and deployment with advanced features.',
+    title: 'Business Growth',
+    description: 'Scale your chatbot agency with advanced strategies, team building, and recurring revenue models. Build a thriving business.',
     duration: '6 hours',
-    lessons: 10,
-    projects: 3,
+    lessons: 9,
+    projects: 2,
     highlights: [
-      'Platform Integration',
-      'Enterprise Features',
-      'Advanced Analytics',
-      'Custom Model Deployment'
+      'Scaling & Team Building',
+      'Recurring Revenue Models',
+      'Advanced Marketing Strategies',
+      'Business Operations & Systems'
     ]
   }
 ]
@@ -95,11 +95,11 @@ export function CourseOverviewSection() {
           className="text-center mb-16"
         >
           <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
-            Complete Course Overview
+            Complete Business-in-a-Box System
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Master ChatLLM through our comprehensive 5-module curriculum designed by AI experts. 
-            Each module builds upon the previous one to ensure deep understanding.
+            Master the complete system to build and scale your AI chatbot agency for SMBs.
+            Each module builds upon the previous one to create a profitable, sustainable business.
           </p>
           
           {/* Course Stats */}
@@ -110,11 +110,11 @@ export function CourseOverviewSection() {
             </div>
             <div className="flex items-center space-x-2">
               <Video className="w-5 h-5 text-primary" />
-              <span className="text-sm text-muted-foreground">69 Video Lessons</span>
+              <span className="text-sm text-muted-foreground">60 Video Lessons</span>
             </div>
             <div className="flex items-center space-x-2">
               <FileText className="w-5 h-5 text-primary" />
-              <span className="text-sm text-muted-foreground">19 Hands-On Projects</span>
+              <span className="text-sm text-muted-foreground">16 Real SMB Projects</span>
             </div>
           </div>
         </motion.div>
@@ -190,8 +190,8 @@ export function CourseOverviewSection() {
             What You'll Build
           </h3>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            By the end of this course, you'll have built a complete ChatLLM application, 
-            deployed it to production, and gained the expertise to tackle any LLM project with confidence.
+            By the end of this course, you'll have a complete chatbot agency business with proven templates,
+            client acquisition systems, and the technical skills to serve SMBs profitably and confidently.
           </p>
         </motion.div>
       </div>

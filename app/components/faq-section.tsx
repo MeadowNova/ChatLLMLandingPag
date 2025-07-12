@@ -21,7 +21,7 @@ const faqs = [
   },
   {
     question: 'What makes this course different from free online resources?',
-    answer: 'Unlike scattered free resources, our course offers: (1) Structured curriculum designed by AI experts, (2) Custom AI assistant for 24/7 personalized guidance, (3) Hands-on projects with real datasets, (4) Abacus.AI platform access worth $500/month, (5) Expert community and mentorship, (6) Industry-recognized certification, and (7) Lifetime updates.'
+    answer: 'Unlike scattered free resources, our course offers: (1) Complete business-in-a-box system for SMB chatbot agencies, (2) Proven templates and client acquisition strategies, (3) Hands-on projects with real SMB use cases, (4) Guidance on using affordable platforms like Abacus.AI, (5) Expert community and mentorship, (6) Industry-focused certification, and (7) Lifetime updates with new SMB strategies.'
   },
   {
     question: 'What if I\'m not satisfied with the course?',
@@ -29,7 +29,7 @@ const faqs = [
   },
   {
     question: 'Do I get access to the Abacus.AI platform?',
-    answer: 'Absolutely! The course includes full access to the Abacus.AI platform (normally $500/month) for the duration of your learning. You\'ll learn to use the same enterprise-grade tools used by Fortune 500 companies, giving you real-world, production-ready skills.'
+    answer: 'Yes! The course includes guidance on using the Abacus.AI platform (starting at $20/month) to build professional chatbots for your SMB clients. You\'ll learn to leverage this accessible platform to create high-quality solutions that deliver real value to small and medium businesses.'
   },
   {
     question: 'How does the AI assistant work?',
@@ -45,7 +45,19 @@ const faqs = [
   },
   {
     question: 'How often is the course content updated?',
-    answer: 'The AI field evolves rapidly, so we update our course content quarterly. As a lifetime member, you\'ll automatically receive all updates at no extra cost. This ensures you\'re always learning the latest techniques and best practices in ChatLLM development.'
+    answer: 'The AI field evolves rapidly, so we update our course content quarterly. As a lifetime member, you\'ll automatically receive all updates at no extra cost. This ensures you\'re always learning the latest techniques and best practices for serving SMB clients.'
+  },
+  {
+    question: 'Do I need technical experience to start a chatbot agency?',
+    answer: 'No! Our system is designed for entrepreneurs, not just developers. We focus on no-code solutions and business skills. Many of our most successful graduates came from sales, marketing, or other non-technical backgrounds.'
+  },
+  {
+    question: 'How much can I realistically earn with a chatbot agency?',
+    answer: 'Our graduates typically charge $2,500-$5,000 for initial chatbot projects, plus $200-$500/month for maintenance. With just 5-10 clients, you can build a $50K+ annual business. Top performers exceed $100K in their first year.'
+  },
+  {
+    question: 'What if I can\'t find SMB clients in my area?',
+    answer: 'The beauty of chatbot services is they can be delivered remotely. Our course includes strategies for finding clients locally and nationally. Plus, with video calls and screen sharing, location is rarely a barrier.'
   }
 ]
 

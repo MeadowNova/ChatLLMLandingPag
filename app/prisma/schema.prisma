@@ -16,6 +16,8 @@ model EmailSubscriber {
     signupDate  DateTime @default(now())
     source      String   @default("landing_page")
     status      String   @default("active")
+    experience  String?  // Experience level: beginner, some-experience, experienced, business-owner
+    interests   String[] // Array of interests
     createdAt   DateTime @default(now())
     updatedAt   DateTime @updatedAt
 

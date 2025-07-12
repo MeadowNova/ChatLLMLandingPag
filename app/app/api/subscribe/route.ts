@@ -2,23 +2,41 @@
 export const dynamic = "force-dynamic";
 
 import { NextRequest, NextResponse } from 'next/server'
-import { PrismaClient } from '@prisma/client'
+import { prisma } from '@/lib/db'
+import { rateLimit } from '@/lib/rate-limit'
 import { z } from 'zod'
-
-const prisma = new PrismaClient()
 
 const subscribeSchema = z.object({
   email: z.string().email('Invalid email address'),
   name: z.string().optional(),
-  source: z.string().default('landing_page')
+  source: z.string().default('landing_page'),
+  experience: z.string().optional(),
+  interests: z.array(z.string()).optional()
 })
 
 export async function POST(request: NextRequest) {
   try {
+    // Apply rate limiting
+    const rateLimitResult = rateLimit(request, 5, 60000) // 5 requests per minute
+
+    if (!rateLimitResult.success) {
+      return NextResponse.json({
+        error: 'Too many requests. Please try again later.',
+        resetTime: rateLimitResult.resetTime
+      }, {
+        status: 429,
+        headers: {
+          'X-RateLimit-Limit': '5',
+          'X-RateLimit-Remaining': '0',
+          'X-RateLimit-Reset': rateLimitResult.resetTime.toString()
+        }
+      })
+    }
+
     const body = await request.json()
     
     // Validate input
-    const { email, name, source } = subscribeSchema.parse(body)
+    const { email, name, source, experience, interests } = subscribeSchema.parse(body)
 
     // Check if email already exists
     const existingSubscriber = await prisma.emailSubscriber.findUnique({
@@ -30,10 +48,13 @@ export async function POST(request: NextRequest) {
       if (existingSubscriber.status === 'unsubscribed') {
         const updatedSubscriber = await prisma.emailSubscriber.update({
           where: { email },
-          data: { 
+          data: {
             status: 'active',
             source,
-            signupDate: new Date()
+            signupDate: new Date(),
+            name: name || existingSubscriber.name,
+            experience: experience || existingSubscriber.experience,
+            interests: interests || existingSubscriber.interests
           }
         })
         
@@ -63,7 +84,9 @@ export async function POST(request: NextRequest) {
         email,
         name: name || null,
         source,
-        status: 'active'
+        status: 'active',
+        experience: experience || null,
+        interests: interests || []
       }
     })
 
@@ -90,8 +113,6 @@ export async function POST(request: NextRequest) {
       error: 'Failed to process subscription. Please try again.'
     }, { status: 500 })
 
-  } finally {
-    await prisma.$disconnect()
   }
 }
 
@@ -116,7 +137,5 @@ export async function GET() {
       error: 'Failed to fetch stats'
     }, { status: 500 })
 
-  } finally {
-    await prisma.$disconnect()
   }
 }
