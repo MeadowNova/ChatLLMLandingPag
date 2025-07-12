@@ -42,37 +42,58 @@ export function HeroSection() {
       {/* Content */}
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <div className="max-w-4xl mx-auto">
+          {/* Course Header Graphic */}
+          <div className="mb-8">
+            <div className="relative w-full max-w-2xl mx-auto">
+              <Image
+                src="/course-header-graphic.png"
+                alt="ChatLLM Mastery Course Header"
+                width={800}
+                height={400}
+                className="object-contain w-full h-auto"
+                onError={(e) => {
+                  // Hide image if it fails to load
+                  e.currentTarget.style.display = 'none';
+                }}
+              />
+            </div>
+          </div>
+
           {/* Badge */}
           <div className="inline-flex items-center space-x-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-8">
             <Star className="w-4 h-4 fill-current" />
-            <span>AI-Powered Learning Experience</span>
+            <span>Complete Business-in-a-Box System</span>
           </div>
 
           {/* Headline */}
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-6 leading-tight">
-            Master ChatLLM: From{' '}
-            <span className="text-primary">Novice to Expert</span>{' '}
-            with AI-Powered Training
+            Build & Scale{' '}
+            <span className="text-primary">AI Chatbots</span>{' '}
+            for SMBs
           </h1>
 
           {/* Subheadline */}
           <p className="text-xl sm:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto leading-relaxed">
-            Unlock the power of Large Language Models with our hands-on course, featuring a custom AI assistant to guide you every step of the way.
+            Master the complete system to launch your profitable chatbot agency. From technical skills to client acquisition - everything you need to succeed.
           </p>
 
           {/* Stats */}
           <div className="flex flex-wrap justify-center items-center gap-8 mb-12 text-center">
             <div className="flex flex-col">
-              <span className="text-2xl font-bold text-primary count-up">5</span>
-              <span className="text-sm text-muted-foreground">Comprehensive Modules</span>
-            </div>
-            <div className="flex flex-col">
-              <span className="text-2xl font-bold text-primary count-up">50+</span>
-              <span className="text-sm text-muted-foreground">Hands-On Projects</span>
-            </div>
-            <div className="flex flex-col">
-              <span className="text-2xl font-bold text-primary count-up">1000+</span>
+              <span className="text-2xl font-bold text-primary count-up">500+</span>
               <span className="text-sm text-muted-foreground">Students Enrolled</span>
+            </div>
+            <div className="flex flex-col">
+              <span className="text-2xl font-bold text-primary count-up">95%</span>
+              <span className="text-sm text-muted-foreground">Success Rate</span>
+            </div>
+            <div className="flex flex-col">
+              <span className="text-2xl font-bold text-primary count-up">$2.5K</span>
+              <span className="text-sm text-muted-foreground">Avg First Project</span>
+            </div>
+            <div className="flex flex-col">
+              <span className="text-2xl font-bold text-primary count-up">60</span>
+              <span className="text-sm text-muted-foreground">Days to Results</span>
             </div>
           </div>
 
@@ -91,25 +112,25 @@ export function HeroSection() {
           {/* Email Signup */}
           <div className="max-w-md mx-auto">
             <div className="mb-4 p-4 bg-primary/10 border border-primary/30 rounded-lg text-center">
-              <span className="block text-lg sm:text-xl font-bold text-primary mb-1">The Shocking Truth About Chatbot Pricing</span>
-              <span className="block font-semibold text-primary">What "Experts" on Fiverr Charge: <span className="font-extrabold text-2xl" style={{ color: '#ef4444' }}>$18,000+</span> <span className="text-foreground font-semibold">for Custom AI Chatbots</span></span>
+              <span className="block text-lg sm:text-xl font-bold text-primary mb-1">🚀 Limited Launch Spots Available</span>
+              <span className="block font-semibold text-foreground">Join the exclusive waitlist for early access and special pricing</span>
             </div>
             <div className="mb-4 p-4 bg-primary/5 border border-primary/20 rounded-lg text-center">
               <p className="text-base text-foreground font-semibold mb-2">
-                This price arbitrage opportunity exists because most business owners don't know how simple chatbot building has become. But that's changing fast.
+                Get the complete business-in-a-box system to build and scale your AI chatbot agency.
               </p>
               <p className="text-base text-muted-foreground mb-2">
-                Every day, more people discover they can build professional chatbots for $20/month instead of paying $18,000.
+                From technical mastery to client acquisition - everything you need to succeed in the SMB market.
               </p>
               <p className="text-base text-muted-foreground">
-                Six months from now, this won't be a secret anymore. The question is: do you want to be ahead of the curve or behind it?
+                Early birds get exclusive bonuses worth $500+ and special launch pricing.
               </p>
             </div>
             <p className="text-sm text-muted-foreground mb-4">
-              Join 5,000+ professionals already learning
+              Join 500+ aspiring chatbot entrepreneurs
             </p>
-            <EmailSubscriptionForm 
-              placeholder="Enter your email for course updates"
+            <EmailSubscriptionForm
+              placeholder="Enter your email to secure your spot"
               source="hero"
               className="flex gap-2"
             />

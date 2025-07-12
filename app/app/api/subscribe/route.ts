@@ -9,7 +9,9 @@ import { z } from 'zod'
 const subscribeSchema = z.object({
   email: z.string().email('Invalid email address'),
   name: z.string().optional(),
-  source: z.string().default('landing_page')
+  source: z.string().default('landing_page'),
+  experience: z.string().optional(),
+  interests: z.array(z.string()).optional()
 })
 
 export async function POST(request: NextRequest) {
@@ -34,7 +36,7 @@ export async function POST(request: NextRequest) {
     const body = await request.json()
     
     // Validate input
-    const { email, name, source } = subscribeSchema.parse(body)
+    const { email, name, source, experience, interests } = subscribeSchema.parse(body)
 
     // Check if email already exists
     const existingSubscriber = await prisma.emailSubscriber.findUnique({
@@ -46,10 +48,13 @@ export async function POST(request: NextRequest) {
       if (existingSubscriber.status === 'unsubscribed') {
         const updatedSubscriber = await prisma.emailSubscriber.update({
           where: { email },
-          data: { 
+          data: {
             status: 'active',
             source,
-            signupDate: new Date()
+            signupDate: new Date(),
+            name: name || existingSubscriber.name,
+            experience: experience || existingSubscriber.experience,
+            interests: interests || existingSubscriber.interests
           }
         })
         
@@ -79,7 +84,9 @@ export async function POST(request: NextRequest) {
         email,
         name: name || null,
         source,
-        status: 'active'
+        status: 'active',
+        experience: experience || null,
+        interests: interests || []
       }
     })
 

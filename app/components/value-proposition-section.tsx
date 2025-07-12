@@ -3,38 +3,38 @@
 
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
-import { Brain, Target, Zap, Users, BookOpen, Award } from 'lucide-react'
+import { DollarSign, Target, Zap, Users, BookOpen, TrendingUp } from 'lucide-react'
 
 const features = [
   {
-    icon: Brain,
-    title: 'AI-Powered Guidance',
-    description: 'Learn with a custom AI assistant that adapts to your learning style and provides personalized feedback throughout your journey.'
+    icon: DollarSign,
+    title: 'Land Your First $2,500 AI Client',
+    description: 'Our proven system helps you secure high-value SMB clients within 60 days. Learn the exact strategies our graduates use to close deals.'
   },
   {
     icon: Target,
-    title: 'Hands-On Learning',
-    description: 'Build real-world projects and applications while mastering ChatLLM concepts through practical, interactive exercises.'
+    title: 'Ready-to-Use Business Templates',
+    description: 'Get proven chatbot templates for common SMB needs: customer service, lead generation, appointment booking, and more.'
   },
   {
     icon: Zap,
-    title: 'Career-Ready Skills',
-    description: 'Gain in-demand expertise in Large Language Models that top tech companies are actively seeking in today\'s market.'
+    title: 'No-Code Technical Mastery',
+    description: 'Build professional chatbots using accessible platforms like Abacus.AI. No complex coding required - focus on serving clients.'
   },
   {
     icon: Users,
-    title: 'Expert Community',
-    description: 'Join a vibrant community of AI practitioners and get mentorship from industry experts and Abacus.AI professionals.'
+    title: 'SMB Client Acquisition System',
+    description: 'Master the complete sales process: finding prospects, crafting proposals, closing deals, and delivering exceptional results.'
   },
   {
     icon: BookOpen,
-    title: 'Comprehensive Curriculum',
-    description: 'Master everything from fundamentals to advanced topics with our structured 5-module curriculum designed by AI experts.'
+    title: 'Complete Business-in-a-Box',
+    description: 'From technical skills to business operations - get everything you need to launch and scale your profitable chatbot agency.'
   },
   {
-    icon: Award,
-    title: 'Industry Recognition',
-    description: 'Earn a certificate recognized by leading tech companies and demonstrate your expertise in ChatLLM technologies.'
+    icon: TrendingUp,
+    title: 'Recurring Revenue Strategies',
+    description: 'Build sustainable income with monthly retainers, maintenance contracts, and expansion opportunities with existing clients.'
   }
 ]
 
@@ -55,11 +55,11 @@ export function ValuePropositionSection() {
           className="text-center mb-16"
         >
           <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
-            Why Choose Our ChatLLM Course?
+            Why Our SMB Chatbot System Works
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Transform your AI knowledge with the most comprehensive and practical ChatLLM training available. 
-            Here's what makes our course different.
+            Transform your income with the most comprehensive chatbot agency system available.
+            Here's what makes our business-in-a-box different.
           </p>
         </motion.div>
 
@@ -97,15 +97,15 @@ export function ValuePropositionSection() {
         >
           <div className="bg-primary/5 border border-primary/20 rounded-lg p-8 max-w-2xl mx-auto">
             <h3 className="text-2xl font-bold text-foreground mb-4">
-              Ready to Start Your AI Journey?
+              Ready to Build Your Chatbot Agency?
             </h3>
             <p className="text-muted-foreground mb-6">
-              Join thousands of professionals who have already transformed their careers with our ChatLLM expertise.
+              Join 500+ entrepreneurs who are already building profitable chatbot agencies serving the SMB market.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <span className="text-sm text-primary font-medium">✓ Lifetime Access</span>
-              <span className="text-sm text-primary font-medium">✓ 30-Day Money Back</span>
-              <span className="text-sm text-primary font-medium">✓ Expert Support</span>
+              <span className="text-sm text-primary font-medium">✓ Complete Business System</span>
+              <span className="text-sm text-primary font-medium">✓ Proven Client Templates</span>
+              <span className="text-sm text-primary font-medium">✓ 60-Day Success Path</span>
             </div>
           </div>
         </motion.div>
