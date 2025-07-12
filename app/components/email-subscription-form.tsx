@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { useToast } from '@/hooks/use-toast'
+import { useAnalytics } from '@/hooks/useAnalytics'
 import { Mail, Loader2, Check, User, Briefcase } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -28,6 +29,7 @@ export function EmailSubscriptionForm({
   const [isLoading, setIsLoading] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
   const { toast } = useToast()
+  const { trackEmailSignup, trackWaitlistJoin, trackFormSubmission } = useAnalytics()
 
   const handleInterestChange = (interest: string) => {
     setInterests(prev =>
@@ -82,6 +84,20 @@ export function EmailSubscriptionForm({
       }
 
       setIsSuccess(true)
+
+      // Track successful subscription
+      if (enhanced) {
+        trackWaitlistJoin(email, {
+          name,
+          experience,
+          interests,
+          source,
+        })
+      } else {
+        trackEmailSignup(email, source, experience)
+      }
+      trackFormSubmission('email_subscription', true)
+
       setEmail('')
       setName('')
       setExperience('')
@@ -97,6 +113,10 @@ export function EmailSubscriptionForm({
 
     } catch (error) {
       console.error('Subscription error:', error)
+
+      // Track failed subscription
+      trackFormSubmission('email_subscription', false)
+
       toast({
         title: "Subscription failed",
         description: error instanceof Error ? error.message : "Please try again later.",

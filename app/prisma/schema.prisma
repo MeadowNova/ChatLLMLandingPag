@@ -1,25 +1,203 @@
+// ChatLLM Mastery - Enhanced Prisma Schema
+// Backward compatible with existing Next.js app
+
 generator client {
-    provider = "prisma-client-js"
-    binaryTargets = ["native", "linux-musl-arm64-openssl-3.0.x"]
-    // output = "/home/ubuntu/chatllm_landing_page/app/node_modules/.prisma/client"
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl-arm64-openssl-3.0.x"]
 }
 
 datasource db {
-    provider = "postgresql"
-    url      = env("DATABASE_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
-model EmailSubscriber {
-    id          String   @id @default(cuid())
-    email       String   @unique
-    name        String?
-    signupDate  DateTime @default(now())
-    source      String   @default("landing_page")
-    status      String   @default("active")
-    experience  String?  // Experience level: beginner, some-experience, experienced, business-owner
-    interests   String[] // Array of interests
-    createdAt   DateTime @default(now())
-    updatedAt   DateTime @updatedAt
+// Enhanced WaitlistSubscriber model (migrated from EmailSubscriber)
+model WaitlistSubscriber {
+  id String @id @default(cuid())
 
-    @@map("email_subscribers")
+  // CORE FIELDS (migrated from EmailSubscriber)
+  email           String           @unique
+  firstName       String? // Split from 'name' field
+  lastName        String? // Split from 'name' field
+  company         String?
+  experienceLevel ExperienceLevel?
+
+  // LEGACY FIELDS (for backward compatibility during migration)
+  name            String? // Will be deprecated after migration
+  experience      String? // Will be deprecated after migration
+  legacyInterests String[] // Will be deprecated after migration
+  source          String   @default("landing_page")
+  status          String   @default("active")
+
+  // NEW ANALYTICS FIELDS
+  interests        Interest[]
+  ipAddress        String?
+  userAgent        String?
+  referralSource   String? // utm_source, direct, social, etc.
+  referralMedium   String? // utm_medium
+  referralCampaign String? // utm_campaign
+
+  // ENGAGEMENT TRACKING
+  emailOpenCount  Int       @default(0)
+  emailClickCount Int       @default(0)
+  lastEngagement  DateTime?
+
+  // CONVERSION TRACKING
+  isConverted      Boolean   @default(false)
+  conversionDate   DateTime?
+  purchaseAmount   Float?
+  purchasePlatform String? // "kajabi", "gumroad", etc.
+
+  // SEGMENTATION
+  segment String? @default("waitlist") // "early_bird", "regular", "vip"
+  tags    Tag[]
+
+  // COMMUNICATION PREFERENCES
+  emailConsent     Boolean   @default(true)
+  marketingConsent Boolean   @default(true)
+  unsubscribed     Boolean   @default(false)
+  unsubscribeDate  DateTime?
+
+  // RELATIONSHIPS
+  emailOpens  EmailOpen[]  @relation("SubscriberEmailOpens")
+  emailClicks EmailClick[] @relation("SubscriberEmailClicks")
+  feedback    Feedback[]
+
+  // TIMESTAMPS
+  signupDate DateTime @default(now())
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("email_subscribers") // Keep existing table name for compatibility
+}
+
+// Experience levels enum
+enum ExperienceLevel {
+  COMPLETE_BEGINNER
+  SOME_AI_TECH_EXPERIENCE
+  EXPERIENCED_PROFESSIONAL
+
+  @@map("experience_levels")
+}
+
+// NEW MODELS (these create new tables)
+
+model Interest {
+  id          String  @id @default(cuid())
+  name        String  @unique
+  description String?
+
+  // Relationships
+  subscribers WaitlistSubscriber[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("interests")
+}
+
+model Tag {
+  id          String  @id @default(cuid())
+  name        String  @unique
+  description String?
+  color       String? // For UI display (#3b82f6, etc.)
+
+  // Relationships
+  subscribers WaitlistSubscriber[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("tags")
+}
+
+model EmailCampaign {
+  id       String   @id @default(cuid())
+  name     String   @unique
+  subject  String
+  content  String?
+  sentDate DateTime
+
+  // Campaign metrics
+  totalSent   Int @default(0)
+  totalOpens  Int @default(0)
+  totalClicks Int @default(0)
+
+  // Relationships
+  opens  EmailOpen[]
+  clicks EmailClick[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("email_campaigns")
+}
+
+model EmailOpen {
+  id           String             @id @default(cuid())
+  subscriber   WaitlistSubscriber @relation(fields: [subscriberId], references: [id], name: "SubscriberEmailOpens")
+  subscriberId String
+  campaign     EmailCampaign      @relation(fields: [campaignId], references: [id])
+  campaignId   String
+  openedAt     DateTime           @default(now())
+  ipAddress    String?
+  userAgent    String?
+
+  @@map("email_opens")
+}
+
+model EmailClick {
+  id           String             @id @default(cuid())
+  subscriber   WaitlistSubscriber @relation(fields: [subscriberId], references: [id], name: "SubscriberEmailClicks")
+  subscriberId String
+  campaign     EmailCampaign      @relation(fields: [campaignId], references: [id])
+  campaignId   String
+  clickedAt    DateTime           @default(now())
+  clickedUrl   String
+  ipAddress    String?
+  userAgent    String?
+
+  @@map("email_clicks")
+}
+
+model PageView {
+  id        String  @id @default(cuid())
+  page      String // "/", "/early-bird", etc.
+  ipAddress String?
+  userAgent String?
+  referrer  String?
+
+  // UTM parameters
+  utmSource   String?
+  utmMedium   String?
+  utmCampaign String?
+  utmTerm     String?
+  utmContent  String?
+
+  // Session tracking
+  sessionId String?
+
+  viewedAt DateTime @default(now())
+
+  @@map("page_views")
+}
+
+model Feedback {
+  id           String              @id @default(cuid())
+  subscriber   WaitlistSubscriber? @relation(fields: [subscriberId], references: [id])
+  subscriberId String?
+
+  // Feedback content
+  rating        Int? // 1-5 stars
+  message       String
+  isTestimonial Boolean @default(false)
+  isPublic      Boolean @default(false)
+
+  // Contact info (if not a subscriber)
+  guestName  String?
+  guestEmail String?
+
+  submittedAt DateTime @default(now())
+
+  @@map("feedback")
 }

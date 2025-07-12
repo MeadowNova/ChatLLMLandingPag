@@ -5,7 +5,19 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "postbuild": "prisma generate",
+    "vercel-build": "prisma generate && prisma migrate deploy && next build",
+    "db:migrate": "prisma migrate deploy",
+    "db:generate": "prisma generate",
+    "db:push": "prisma db push",
+    "db:seed": "tsx --require dotenv/config scripts/seed.ts",
+    "generate-env-vars": "tsx scripts/generate-env-vars.ts",
+    "setup-production": "tsx scripts/setup-production-db.ts",
+    "migrate-data": "tsx scripts/migrate-existing-data.ts",
+    "deploy-enhanced-schema": "prisma migrate deploy && npm run migrate-data",
+    "vercel-setup": "tsx scripts/vercel-setup.ts",
+    "pre-push-check": "tsx scripts/pre-push-check.ts"
   },
   "prisma": {
     "seed": "tsx --require dotenv/config scripts/seed.ts"

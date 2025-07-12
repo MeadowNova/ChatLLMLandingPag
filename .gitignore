@@ -109,6 +109,10 @@ prisma/dev.db*
 # Vercel
 .vercel
 
+# Production environment files (keep templates)
+.env.production
+.env.staging
+
 # Augment
 .augment/
 

@@ -1,25 +1,75 @@
 
-import { NextResponse } from 'next/server';
-import { prisma } from '@/lib/db';
+import { NextRequest, NextResponse } from 'next/server';
+import { PrismaClient } from '@prisma/client';
 import { z } from 'zod';
+import { headers } from 'next/headers';
+
+const prisma = new PrismaClient();
 
 const subscriberSchema = z.object({
   email: z.string().email("Valid email is required"),
-  source: z.string().optional().default("landing_page_simplified"),
+  name: z.string().optional(),
+  firstName: z.string().optional(),
+  lastName: z.string().optional(),
+  company: z.string().optional(),
+  experience: z.string().optional(),
+  experienceLevel: z.enum(['COMPLETE_BEGINNER', 'SOME_AI_TECH_EXPERIENCE', 'EXPERIENCED_PROFESSIONAL']).optional(),
+  interests: z.array(z.string()).optional(),
+  source: z.string().optional().default("landing_page"),
+  // Analytics fields
+  referralSource: z.string().optional(),
+  referralMedium: z.string().optional(),
+  referralCampaign: z.string().optional(),
 });
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
+
+    // Get client analytics data
+    const headersList = headers()
+    const ipAddress = headersList.get('x-forwarded-for') ||
+                     headersList.get('x-real-ip') ||
+                     request.ip ||
+                     'unknown'
+    const userAgent = headersList.get('user-agent') || 'unknown'
 
     // Validate the request body
     const validatedData = subscriberSchema.parse(body);
 
+    // Parse name into firstName and lastName if provided
+    let firstName = validatedData.firstName;
+    let lastName = validatedData.lastName;
+
+    if (validatedData.name && !firstName && !lastName) {
+      const nameParts = validatedData.name.trim().split(' ');
+      firstName = nameParts[0];
+      lastName = nameParts.slice(1).join(' ') || undefined;
+    }
+
     // Create the subscriber
-    await prisma.emailSubscriber.create({
+    await prisma.waitlistSubscriber.create({
       data: {
         email: validatedData.email,
+        firstName,
+        lastName,
+        company: validatedData.company,
+        experienceLevel: validatedData.experienceLevel,
         source: validatedData.source,
+        // Legacy fields for backward compatibility
+        name: validatedData.name,
+        experience: validatedData.experience,
+        legacyInterests: validatedData.interests || [],
+        // Analytics fields
+        ipAddress: ipAddress.split(',')[0].trim(),
+        userAgent,
+        referralSource: validatedData.referralSource,
+        referralMedium: validatedData.referralMedium,
+        referralCampaign: validatedData.referralCampaign,
+        // Default values for new fields
+        segment: 'waitlist',
+        emailConsent: true,
+        marketingConsent: true,
       },
     });
 

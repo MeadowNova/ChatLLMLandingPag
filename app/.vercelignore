@@ -1,0 +1,75 @@
+# Vercel Ignore File
+# Files and directories to ignore during Vercel deployment
+
+# Development files
+.env.local
+.env.development
+.env.test
+
+# Documentation
+*.md
+!README.md
+
+# Development tools
+.vscode/
+.idea/
+
+# Test files
+**/*.test.*
+**/*.spec.*
+__tests__/
+tests/
+
+# Development scripts
+scripts/seed.ts
+scripts/test-*.ts
+
+# Docker files (not needed for Vercel)
+Dockerfile
+docker-compose*.yml
+
+# Local database
+prisma/dev.db*
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+tmp/
+temp/
+.tmp/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+*.swp
+*.swo
+*~
+
+# Build artifacts (handled by Vercel)
+.next/
+out/
+dist/
+
+# Dependencies (will be installed by Vercel)
+node_modules/
+
+# Environment files (use Vercel dashboard instead)
+.env.production
+.env.staging
+
+# Git files
+.git/
+.gitignore
+
+# Task files
+Tasks_*.md
+
+# MCP server (not needed for deployment)
+../mcp-server/
+
+# Updates folder (documentation only)
+../Updates*/

@@ -14,7 +14,7 @@
 **Step-by-step Workflow:**
 1.  **Understand Current Copy:** Review existing copy on the landing page components.
 2.  **Define New Messaging Pillars:** Based on the strategic implications, outline the core messages for each section.
-    *   Shift Narrative: From "Exploit Pricing Arbitrage" to "Launch Your AI Automation Agency for SMBs."
+    *   Shift Narrative: From "Exploit Pricing Arbitrage" to "Launch Your AI Automation Chatbot Agency for SMBs."
     *   Highlight Value: Emphasize the "business-in-a-box" framework (templates, business acumen) as the core value.
     *   Transparency: Acknowledge Abacus AI limitations and position the course as a guide through these challenges, building trust.
     *   Target Market: Clearly define the focus on the SMB market.

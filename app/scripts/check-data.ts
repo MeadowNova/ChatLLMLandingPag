@@ -5,15 +5,23 @@ const prisma = new PrismaClient();
 async function main() {
   console.log('📊 Checking email subscribers...');
   
-  const subscribers = await prisma.emailSubscriber.findMany({
+  const subscribers = await prisma.waitlistSubscriber.findMany({
     orderBy: { createdAt: 'desc' },
-    take: 10
+    take: 10,
+    include: {
+      interests: true, // Include the related interests
+    },
   });
-  
-  console.log(`Found ${subscribers.length} subscribers:`);
-  subscribers.forEach((sub, index) => {
-    console.log(`${index + 1}. ${sub.name} (${sub.email}) - ${sub.experience} - [${sub.interests.join(', ')}]`);
-  });
+
+  console.log('\n--- Latest Subscribers ---');
+  if (subscribers.length === 0) {
+    console.log('No subscribers found.');
+  } else {
+    subscribers.forEach((sub, index) => {
+      const interestNames = sub.interests.map(interest => interest.name).join(', ');
+      console.log(`${index + 1}. ${sub.firstName} ${sub.lastName} (${sub.email}) - ${sub.experienceLevel} - [${interestNames}]`);
+    });
+  }
 }
 
 main()

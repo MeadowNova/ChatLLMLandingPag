@@ -6,7 +6,12 @@ const nextConfig = {
   output: process.env.NEXT_OUTPUT_MODE,
   experimental: {
     outputFileTracingRoot: path.join(__dirname, '../'),
+    serverComponentsExternalPackages: ['@prisma/client'],
   },
+
+  // Vercel-specific optimizations
+  poweredByHeader: false,
+  compress: true,
   eslint: {
     ignoreDuringBuilds: true,
   },

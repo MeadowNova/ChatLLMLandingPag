@@ -1,0 +1,166 @@
+name: CI/CD Pipeline
+
+# When should this workflow run?
+on:
+  push:
+    branches: [ main ]      # Run on every push to main branch
+  pull_request:
+    branches: [ main ]      # Run on every PR to main branch
+
+# Define the jobs that will run
+jobs:
+  # Job 1: Test and Build
+  test-and-build:
+    runs-on: ubuntu-latest
+    name: Test & Build
+    
+    steps:
+      # Step 1: Get the code
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      # Step 2: Setup Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: app/package-lock.json
+          
+      # Step 3: Install dependencies
+      - name: Install dependencies
+        working-directory: ./app
+        run: npm ci
+        
+      # Step 4: Run linting (code quality check)
+      - name: Run ESLint
+        working-directory: ./app
+        run: npm run lint
+        
+      # Step 5: Generate Prisma client
+      - name: Generate Prisma Client
+        working-directory: ./app
+        run: npx prisma generate
+        
+      # Step 6: Type checking
+      - name: TypeScript type check
+        working-directory: ./app
+        run: npx tsc --noEmit
+        
+      # Step 7: Run tests (if you have any)
+      - name: Run tests
+        working-directory: ./app
+        run: npm test --if-present
+        
+      # Step 8: Build the application
+      - name: Build application
+        working-directory: ./app
+        run: npm run build
+        
+      # Step 9: Run our custom validation
+      - name: Validate deployment readiness
+        working-directory: ./app
+        run: npm run pre-push-check
+
+  # Job 2: Security Scan (runs in parallel with test-and-build)
+  security-scan:
+    runs-on: ubuntu-latest
+    name: Security Scan
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      # Check for known vulnerabilities in dependencies
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: app/package-lock.json
+          
+      - name: Install dependencies
+        working-directory: ./app
+        run: npm ci
+        
+      - name: Run security audit
+        working-directory: ./app
+        run: npm audit --audit-level=moderate
+        continue-on-error: true  # Don't fail the build for low-severity issues
+
+  # Job 3: Deploy to Vercel (only runs if tests pass)
+  deploy:
+    runs-on: ubuntu-latest
+    name: Deploy to Vercel
+    needs: [test-and-build, security-scan]  # Wait for both jobs to complete
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'  # Only deploy on main branch pushes
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+        
+      - name: Pull Vercel Environment Information
+        working-directory: ./app
+        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+        
+      - name: Build Project Artifacts
+        working-directory: ./app
+        run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+        
+      - name: Deploy Project Artifacts to Vercel
+        working-directory: ./app
+        run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
+        
+      # Step to verify deployment worked
+      - name: Health check
+        run: |
+          echo "Waiting for deployment to be ready..."
+          sleep 30
+          # You'll replace this URL with your actual domain
+          curl -f https://your-domain.vercel.app/api/health/db || echo "Health check failed, but deployment may still be successful"
+
+  # Job 4: Performance Check (only on PRs)
+  performance-check:
+    runs-on: ubuntu-latest
+    name: Performance Check
+    needs: test-and-build
+    if: github.event_name == 'pull_request'  # Only run on pull requests
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: app/package-lock.json
+          
+      - name: Install dependencies
+        working-directory: ./app
+        run: npm ci
+        
+      - name: Generate Prisma Client
+        working-directory: ./app
+        run: npx prisma generate
+        
+      - name: Build application
+        working-directory: ./app
+        run: npm run build
+        
+      - name: Start application
+        working-directory: ./app
+        run: |
+          npm start &
+          sleep 10
+        
+      # Basic performance check using curl
+      - name: Basic performance test
+        run: |
+          echo "Testing page load time..."
+          time curl -s http://localhost:3000 > /dev/null
+          echo "Performance test completed"
