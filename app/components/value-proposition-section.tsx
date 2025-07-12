@@ -45,7 +45,7 @@ export function ValuePropositionSection() {
   })
 
   return (
-    <section className="py-20 bg-secondary/30" ref={ref}>
+    <section className="pt-32 pb-20 bg-secondary/30" ref={ref}>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div

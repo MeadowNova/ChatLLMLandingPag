@@ -1,141 +1,67 @@
 
-export const dynamic = "force-dynamic";
+import { NextResponse } from 'next/server';
+import { prisma } from '@/lib/db';
+import { z } from 'zod';
 
-import { NextRequest, NextResponse } from 'next/server'
-import { prisma } from '@/lib/db'
-import { rateLimit } from '@/lib/rate-limit'
-import { z } from 'zod'
+const subscriberSchema = z.object({
+  email: z.string().email("Valid email is required"),
+  source: z.string().optional().default("landing_page_simplified"),
+});
 
-const subscribeSchema = z.object({
-  email: z.string().email('Invalid email address'),
-  name: z.string().optional(),
-  source: z.string().default('landing_page'),
-  experience: z.string().optional(),
-  interests: z.array(z.string()).optional()
-})
-
-export async function POST(request: NextRequest) {
+export async function POST(request: Request) {
   try {
-    // Apply rate limiting
-    const rateLimitResult = rateLimit(request, 5, 60000) // 5 requests per minute
+    const body = await request.json();
 
-    if (!rateLimitResult.success) {
-      return NextResponse.json({
-        error: 'Too many requests. Please try again later.',
-        resetTime: rateLimitResult.resetTime
-      }, {
-        status: 429,
-        headers: {
-          'X-RateLimit-Limit': '5',
-          'X-RateLimit-Remaining': '0',
-          'X-RateLimit-Reset': rateLimitResult.resetTime.toString()
-        }
-      })
-    }
+    // Validate the request body
+    const validatedData = subscriberSchema.parse(body);
 
-    const body = await request.json()
-    
-    // Validate input
-    const { email, name, source, experience, interests } = subscribeSchema.parse(body)
-
-    // Check if email already exists
-    const existingSubscriber = await prisma.emailSubscriber.findUnique({
-      where: { email }
-    })
-
-    if (existingSubscriber) {
-      // Update existing subscriber if inactive
-      if (existingSubscriber.status === 'unsubscribed') {
-        const updatedSubscriber = await prisma.emailSubscriber.update({
-          where: { email },
-          data: {
-            status: 'active',
-            source,
-            signupDate: new Date(),
-            name: name || existingSubscriber.name,
-            experience: experience || existingSubscriber.experience,
-            interests: interests || existingSubscriber.interests
-          }
-        })
-        
-        return NextResponse.json({
-          message: 'Welcome back! You\'ve been resubscribed to our updates.',
-          subscriber: {
-            id: updatedSubscriber.id,
-            email: updatedSubscriber.email,
-            status: updatedSubscriber.status
-          }
-        })
-      }
-      
-      return NextResponse.json({
-        message: 'You\'re already subscribed! Thanks for your interest.',
-        subscriber: {
-          id: existingSubscriber.id,
-          email: existingSubscriber.email,
-          status: existingSubscriber.status
-        }
-      })
-    }
-
-    // Create new subscriber
-    const newSubscriber = await prisma.emailSubscriber.create({
+    // Create the subscriber
+    await prisma.emailSubscriber.create({
       data: {
-        email,
-        name: name || null,
-        source,
-        status: 'active',
-        experience: experience || null,
-        interests: interests || []
-      }
-    })
+        email: validatedData.email,
+        source: validatedData.source,
+      },
+    });
 
     return NextResponse.json({
-      message: 'Successfully subscribed! We\'ll keep you updated on course developments.',
-      subscriber: {
-        id: newSubscriber.id,
-        email: newSubscriber.email,
-        status: newSubscriber.status
-      }
-    }, { status: 201 })
+      success: true,
+      message: "Successfully subscribed!"
+    });
+  } catch (error: any) {
+    console.error("Subscription error:", error);
 
-  } catch (error) {
-    console.error('Subscription error:', error)
-
+    // Check if it's a validation error
     if (error instanceof z.ZodError) {
-      return NextResponse.json({
-        error: 'Invalid input',
-        details: error.errors
-      }, { status: 400 })
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Invalid form data",
+          error: "Invalid form data",
+          errors: error.errors
+        },
+        { status: 400 }
+      );
     }
 
-    return NextResponse.json({
-      error: 'Failed to process subscription. Please try again.'
-    }, { status: 500 })
+    // Check if it's a unique constraint error (email already exists)
+    if (error?.code === 'P2002') {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "This email is already subscribed.",
+          error: "This email is already subscribed."
+        },
+        { status: 400 }
+      );
+    }
 
-  }
-}
-
-export async function GET() {
-  try {
-    const stats = await prisma.emailSubscriber.aggregate({
-      _count: {
-        id: true
+    return NextResponse.json(
+      {
+        success: false,
+        message: "Failed to process subscription. Please try again.",
+        error: "Failed to process subscription. Please try again."
       },
-      where: {
-        status: 'active'
-      }
-    })
-
-    return NextResponse.json({
-      totalSubscribers: stats._count.id
-    })
-
-  } catch (error) {
-    console.error('Stats error:', error)
-    return NextResponse.json({
-      error: 'Failed to fetch stats'
-    }, { status: 500 })
-
+      { status: 500 }
+    );
   }
 }

@@ -40,25 +40,8 @@ export function HeroSection() {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center pb-24">
         <div className="max-w-4xl mx-auto">
-          {/* Course Header Graphic */}
-          <div className="mb-8">
-            <div className="relative w-full max-w-2xl mx-auto">
-              <Image
-                src="/course-header-graphic.png"
-                alt="ChatLLM Mastery Course Header"
-                width={800}
-                height={400}
-                className="object-contain w-full h-auto"
-                onError={(e) => {
-                  // Hide image if it fails to load
-                  e.currentTarget.style.display = 'none';
-                }}
-              />
-            </div>
-          </div>
-
           {/* Badge */}
           <div className="inline-flex items-center space-x-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-8">
             <Star className="w-4 h-4 fill-current" />
@@ -126,20 +109,22 @@ export function HeroSection() {
                 Early birds get exclusive bonuses worth $500+ and special launch pricing.
               </p>
             </div>
-            <p className="text-sm text-muted-foreground mb-4">
+            <p className="text-sm text-muted-foreground mb-6 text-center">
               Join 500+ aspiring chatbot entrepreneurs
             </p>
-            <EmailSubscriptionForm
-              placeholder="Enter your email to secure your spot"
-              source="hero"
-              className="flex gap-2"
-            />
+            <div className="flex justify-center">
+              <EmailSubscriptionForm
+                placeholder="Enter your email to secure your spot"
+                source="hero"
+                className="flex items-center space-x-3 max-w-lg w-full"
+              />
+            </div>
           </div>
         </div>
       </div>
 
       {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 animate-bounce">
         <div className="w-6 h-10 border-2 border-primary/30 rounded-full flex justify-center">
           <div className="w-1 h-3 bg-primary rounded-full mt-2 animate-pulse" />
         </div>

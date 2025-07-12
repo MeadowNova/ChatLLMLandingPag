@@ -33,7 +33,7 @@ const features = [
   {
     title: 'Abacus.AI Platform Mastery',
     description: 'Master the enterprise-grade Abacus.AI platform used by Fortune 500 companies. Learn advanced analytics, deployment strategies, and scaling techniques.',
-    image: 'https://cdn.abacus.ai/images/7d9adbfc-c4d0-4803-b516-3177778e6265.png',
+    image: '/dashboard.png',
     icon: BarChart3,
     benefits: [
       'Enterprise platform expertise',

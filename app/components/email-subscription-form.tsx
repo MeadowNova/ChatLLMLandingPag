@@ -68,9 +68,9 @@ export function EmailSubscriptionForm({
         },
         body: JSON.stringify({
           email,
-          name: enhanced ? name : undefined,
+          name: enhanced ? (name.trim() || null) : undefined,
           source,
-          experience: enhanced ? experience : undefined,
+          experience: enhanced ? (experience || null) : undefined,
           interests: enhanced ? interests : undefined,
         }),
       })
@@ -205,23 +205,23 @@ export function EmailSubscriptionForm({
   }
 
   return (
-    <form onSubmit={handleSubmit} className={cn("flex gap-2", className)}>
-      <div className="relative flex-1">
-        <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+    <form onSubmit={handleSubmit} className={cn("flex items-center space-x-2", className)}>
+      <div className="relative flex-grow">
+        <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
         <Input
           type="email"
           placeholder={placeholder}
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="pl-10 h-11"
-          disabled={isLoading}
           required
+          className="w-full pl-10 pr-4 py-3 text-base rounded-md bg-gray-800 border border-gray-700 text-white focus:ring-2 focus:ring-green-500"
+          disabled={isLoading}
         />
       </div>
       <Button
         type="submit"
         disabled={isLoading}
-        className="h-11 px-6"
+        className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-6 rounded-md transition-colors duration-300"
       >
         {isLoading ? (
           <Loader2 className="w-4 h-4 animate-spin" />
@@ -230,5 +230,5 @@ export function EmailSubscriptionForm({
         )}
       </Button>
     </form>
-  )
+  );
 }

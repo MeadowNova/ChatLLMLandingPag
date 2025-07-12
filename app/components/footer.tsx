@@ -21,7 +21,7 @@ export function Footer() {
               <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
                 <Brain className="w-5 h-5 text-primary-foreground" />
               </div>
-              <span className="text-lg font-bold text-foreground">ChatLLM Master</span>
+              <span className="text-lg font-bold text-foreground">ChatLLM Mastery</span>
             </div>
             <p className="text-muted-foreground mb-4 max-w-md">
               Master Large Language Models with the most comprehensive and practical ChatLLM training available. 
@@ -29,7 +29,7 @@ export function Footer() {
             </p>
             <div className="flex items-center space-x-2 text-sm text-muted-foreground">
               <MapPin className="w-4 h-4" />
-              <span>Powered by Abacus.AI</span>
+              <span>Powered by ChatLLM Mastery</span>
             </div>
           </div>
 
@@ -58,7 +58,7 @@ export function Footer() {
                   onClick={() => scrollToSection('pricing')}
                   className="text-muted-foreground hover:text-foreground transition-colors text-sm"
                 >
-                  Pricing
+                  Waitlist Signup
                 </button>
               </li>
               <li>

@@ -6,6 +6,8 @@ CREATE TABLE "email_subscribers" (
     "signupDate" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "source" TEXT NOT NULL DEFAULT 'landing_page',
     "status" TEXT NOT NULL DEFAULT 'active',
+    "experience" TEXT,
+    "interests" TEXT[],
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
