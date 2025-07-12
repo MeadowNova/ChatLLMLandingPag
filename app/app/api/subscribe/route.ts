@@ -2,10 +2,9 @@
 export const dynamic = "force-dynamic";
 
 import { NextRequest, NextResponse } from 'next/server'
-import { PrismaClient } from '@prisma/client'
+import { prisma } from '@/lib/db'
+import { rateLimit } from '@/lib/rate-limit'
 import { z } from 'zod'
-
-const prisma = new PrismaClient()
 
 const subscribeSchema = z.object({
   email: z.string().email('Invalid email address'),
@@ -15,6 +14,23 @@ const subscribeSchema = z.object({
 
 export async function POST(request: NextRequest) {
   try {
+    // Apply rate limiting
+    const rateLimitResult = rateLimit(request, 5, 60000) // 5 requests per minute
+
+    if (!rateLimitResult.success) {
+      return NextResponse.json({
+        error: 'Too many requests. Please try again later.',
+        resetTime: rateLimitResult.resetTime
+      }, {
+        status: 429,
+        headers: {
+          'X-RateLimit-Limit': '5',
+          'X-RateLimit-Remaining': '0',
+          'X-RateLimit-Reset': rateLimitResult.resetTime.toString()
+        }
+      })
+    }
+
     const body = await request.json()
     
     // Validate input
@@ -90,8 +106,6 @@ export async function POST(request: NextRequest) {
       error: 'Failed to process subscription. Please try again.'
     }, { status: 500 })
 
-  } finally {
-    await prisma.$disconnect()
   }
 }
 
@@ -116,7 +130,5 @@ export async function GET() {
       error: 'Failed to fetch stats'
     }, { status: 500 })
 
-  } finally {
-    await prisma.$disconnect()
   }
 }
