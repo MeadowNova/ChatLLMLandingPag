@@ -4,16 +4,102 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import { ThemeProvider } from '@/components/theme-provider'
 import { Toaster } from '@/components/ui/toaster'
+import { WebVitals } from '@/components/web-vitals'
 import Script from 'next/script'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'ChatLLM Master Training Course | Abacus.AI',
-  description: 'Master Large Language Models with hands-on training and AI-powered guidance. From novice to expert with our comprehensive ChatLLM course.',
-  keywords: ['ChatLLM', 'AI Training', 'Machine Learning', 'Large Language Models', 'Abacus.AI'],
-  authors: [{ name: 'ChatLLM Mastery' }],
+  metadataBase: new URL('https://chatllmmastery.com'),
+  title: {
+    default: 'ChatLLM Mastery Course - Master AI & Build Your Agency',
+    template: '%s | ChatLLM Mastery'
+  },
+  description: 'Master Large Language Models and build a profitable AI agency. Learn ChatGPT, Claude, and advanced AI implementation strategies. From beginner to expert with hands-on training.',
+  keywords: [
+    'ChatLLM', 'AI Training', 'Machine Learning', 'Large Language Models',
+    'AI Agency', 'ChatGPT Training', 'Claude AI', 'AI Implementation',
+    'AI Business', 'AI Consulting', 'Prompt Engineering', 'AI Automation',
+    'AI Course', 'AI Certification', 'AI Skills', 'AI Career'
+  ],
+  authors: [{ name: 'ChatLLM Mastery', url: 'https://chatllmmastery.com' }],
   creator: 'ChatLLM Mastery',
+  publisher: 'ChatLLM Mastery',
+  category: 'Education',
+  classification: 'AI Training Course',
+
+  // Open Graph
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    url: 'https://chatllmmastery.com',
+    siteName: 'ChatLLM Mastery',
+    title: 'ChatLLM Mastery Course - Master AI & Build Your Agency',
+    description: 'Master Large Language Models and build a profitable AI agency. Learn ChatGPT, Claude, and advanced AI implementation strategies.',
+    images: [
+      {
+        url: '/dashboard.png',
+        width: 1200,
+        height: 630,
+        alt: 'ChatLLM Mastery Course Dashboard',
+        type: 'image/png',
+      },
+      {
+        url: '/feature-1.png',
+        width: 800,
+        height: 600,
+        alt: 'AI Training Features',
+        type: 'image/png',
+      }
+    ],
+  },
+
+  // Twitter Card
+  twitter: {
+    card: 'summary_large_image',
+    site: '@ChatLLMMastery',
+    creator: '@ChatLLMMastery',
+    title: 'ChatLLM Mastery Course - Master AI & Build Your Agency',
+    description: 'Master Large Language Models and build a profitable AI agency. Learn ChatGPT, Claude, and advanced AI implementation strategies.',
+    images: ['/dashboard.png'],
+  },
+
+  // Additional SEO
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+
+  // Verification
+  verification: {
+    google: 'your-google-verification-code',
+    yandex: 'your-yandex-verification-code',
+    yahoo: 'your-yahoo-verification-code',
+  },
+
+  // App metadata
+  applicationName: 'ChatLLM Mastery',
+  referrer: 'origin-when-cross-origin',
+
+  // Additional meta tags
+  other: {
+    'theme-color': '#4ade80',
+    'color-scheme': 'dark light',
+    'apple-mobile-web-app-capable': 'yes',
+    'apple-mobile-web-app-status-bar-style': 'black-translucent',
+    'apple-mobile-web-app-title': 'ChatLLM Mastery',
+    'format-detection': 'telephone=no',
+    'mobile-web-app-capable': 'yes',
+    'msapplication-TileColor': '#4ade80',
+    'msapplication-config': '/browserconfig.xml',
+  },
 }
 
 export default function RootLayout({
@@ -23,6 +109,131 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        {/* Structured Data for SEO */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Course",
+              "name": "ChatLLM Mastery Course",
+              "description": "Master Large Language Models and build a profitable AI agency. Learn ChatGPT, Claude, and advanced AI implementation strategies.",
+              "provider": {
+                "@type": "Organization",
+                "name": "ChatLLM Mastery",
+                "url": "https://chatllmmastery.com",
+                "logo": "https://chatllmmastery.com/header-logo.png",
+                "sameAs": [
+                  "https://twitter.com/ChatLLMMastery",
+                  "https://linkedin.com/company/chatllm-mastery"
+                ]
+              },
+              "courseMode": "online",
+              "educationalLevel": "Beginner to Advanced",
+              "teaches": [
+                "Large Language Models",
+                "AI Implementation",
+                "ChatGPT Training",
+                "Claude AI",
+                "AI Agency Building",
+                "Prompt Engineering",
+                "AI Automation"
+              ],
+              "audience": {
+                "@type": "Audience",
+                "audienceType": [
+                  "Entrepreneurs",
+                  "Business Owners",
+                  "AI Enthusiasts",
+                  "Consultants",
+                  "Developers"
+                ]
+              },
+              "offers": {
+                "@type": "Offer",
+                "category": "Education",
+                "availability": "https://schema.org/InStock",
+                "validFrom": "2024-01-01",
+                "priceValidUntil": "2025-12-31"
+              },
+              "aggregateRating": {
+                "@type": "AggregateRating",
+                "ratingValue": "4.9",
+                "reviewCount": "150",
+                "bestRating": "5",
+                "worstRating": "1"
+              }
+            })
+          }}
+        />
+
+        {/* Organization Schema */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              "name": "ChatLLM Mastery",
+              "url": "https://chatllmmastery.com",
+              "logo": "https://chatllmmastery.com/header-logo.png",
+              "description": "Leading provider of AI training and Large Language Model education",
+              "foundingDate": "2024",
+              "contactPoint": {
+                "@type": "ContactPoint",
+                "contactType": "customer service",
+                "email": "support@chatllmmastery.com"
+              },
+              "sameAs": [
+                "https://twitter.com/ChatLLMMastery",
+                "https://linkedin.com/company/chatllm-mastery"
+              ]
+            })
+          }}
+        />
+
+        {/* Website Schema */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              "name": "ChatLLM Mastery",
+              "url": "https://chatllmmastery.com",
+              "description": "Master Large Language Models and build a profitable AI agency",
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://chatllmmastery.com/search?q={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            })
+          }}
+        />
+
+        {/* PWA Manifest */}
+        <link rel="manifest" href="/manifest.json" />
+
+        {/* Favicon and Icons */}
+        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#4ade80" />
+
+        {/* Preconnect to external domains for performance */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://apps.abacus.ai" />
+
+        {/* DNS Prefetch for better performance */}
+        <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+        <link rel="dns-prefetch" href="//fonts.gstatic.com" />
+        <link rel="dns-prefetch" href="//apps.abacus.ai" />
+        <link rel="dns-prefetch" href="//www.googletagmanager.com" />
+        <link rel="dns-prefetch" href="//connect.facebook.net" />
+      </head>
       <body className={inter.className}>
         <ThemeProvider
           attribute="class"
@@ -32,6 +243,7 @@ export default function RootLayout({
         >
           {children}
           <Toaster />
+          <WebVitals />
         </ThemeProvider>
         <Script
           id="chatbot-widget"
@@ -138,6 +350,103 @@ export default function RootLayout({
                   }
                 });
               })();
+            `
+          }}
+        />
+
+        {/* Google Analytics */}
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}`}
+          strategy="afterInteractive"
+        />
+        <Script
+          id="google-analytics"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', '${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}', {
+                page_location: window.location.href,
+                page_title: document.title,
+                send_page_view: true
+              });
+            `
+          }}
+        />
+
+        {/* Facebook Pixel */}
+        <Script
+          id="facebook-pixel"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              !function(f,b,e,v,n,t,s)
+              {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+              n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+              if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+              n.queue=[];t=b.createElement(e);t.async=!0;
+              t.src=v;s=b.getElementsByTagName(e)[0];
+              s.parentNode.insertBefore(t,s)}(window, document,'script',
+              'https://connect.facebook.net/en_US/fbevents.js');
+              fbq('init', '${process.env.NEXT_PUBLIC_FB_PIXEL_ID}');
+              fbq('track', 'PageView');
+            `
+          }}
+        />
+
+        {/* Analytics Initialization */}
+        <Script
+          id="analytics-init"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              // Initialize custom analytics
+              window.analyticsReady = true;
+
+              // Track initial page view
+              if (typeof gtag !== 'undefined') {
+                gtag('event', 'page_view', {
+                  page_location: window.location.href,
+                  page_title: document.title
+                });
+              }
+
+              // Track scroll depth
+              let maxScroll = 0;
+              let scrollTimer;
+
+              window.addEventListener('scroll', function() {
+                const scrollPercent = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+
+                if (scrollPercent > maxScroll) {
+                  maxScroll = scrollPercent;
+
+                  clearTimeout(scrollTimer);
+                  scrollTimer = setTimeout(() => {
+                    if (typeof gtag !== 'undefined') {
+                      gtag('event', 'scroll', {
+                        event_category: 'engagement',
+                        event_label: 'scroll_depth',
+                        value: maxScroll
+                      });
+                    }
+                  }, 1000);
+                }
+              });
+
+              // Track time on page
+              let startTime = Date.now();
+              window.addEventListener('beforeunload', function() {
+                const timeOnPage = Math.round((Date.now() - startTime) / 1000);
+                if (typeof gtag !== 'undefined') {
+                  gtag('event', 'timing_complete', {
+                    name: 'time_on_page',
+                    value: timeOnPage
+                  });
+                }
+              });
             `
           }}
         />

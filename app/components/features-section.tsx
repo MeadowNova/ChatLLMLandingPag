@@ -21,7 +21,7 @@ const features = [
   {
     title: 'Hands-On Projects',
     description: 'Build real-world ChatLLM applications from scratch. Work with actual datasets, implement production-ready solutions, and create a portfolio that showcases your skills.',
-    image: 'https://cdn.abacus.ai/images/8e08df38-abb9-4a87-9f90-abf5efeb0e0c.png',
+    image: '/demo-shot.png',
     icon: Code,
     benefits: [
       'Build 5 real-world projects',

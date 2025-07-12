@@ -5,11 +5,18 @@ import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { EmailSubscriptionForm } from '@/components/email-subscription-form'
+import { useAnalytics, useSectionTracking } from '@/hooks/useAnalytics'
 import { ArrowRight, Play, Star } from 'lucide-react'
 import Image from 'next/image'
 
 export function HeroSection() {
+  const { trackButtonClick } = useAnalytics()
+
+  // Track when hero section is viewed
+  useSectionTracking('hero-section')
+
   const scrollToPricing = () => {
+    trackButtonClick('scroll_to_pricing', 'hero')
     const element = document.getElementById('pricing')
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' })
@@ -17,6 +24,7 @@ export function HeroSection() {
   }
 
   const scrollToFeatures = () => {
+    trackButtonClick('scroll_to_features', 'hero')
     const element = document.getElementById('features')
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' })
@@ -24,7 +32,7 @@ export function HeroSection() {
   }
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section id="hero-section" className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0">
         <div className="relative w-full h-full aspect-video bg-muted">
