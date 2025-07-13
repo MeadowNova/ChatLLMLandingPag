@@ -4,12 +4,7 @@
   "framework": "nextjs",
   "installCommand": "npm ci",
   "devCommand": "npm run dev",
-  "env": {
-    "NEXTAUTH_URL": {
-      "@type": "system",
-      "value": "VERCEL_URL"
-    }
-  },
+
   "build": {
     "env": {
       "NEXT_PUBLIC_VERCEL_ENV": "@vercel-env",
