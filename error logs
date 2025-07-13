@@ -1,103 +1,53 @@
-The failure is thrown by Vercel’s Next.js build-adapter in its very last step, when it tries to package everything that Next.js put in “the build directory”.
-It simply can’t find the file it always expects to be there:
+You’re no longer failing on the Next.js artefacts—this time the build dies before Next.js even starts.
+Prisma can’t find its schema because the working directory you force Vercel into (cd app) does not contain prisma/schema.prisma.
 
-<project-root>/app/.next/routes-manifest.json
-So either
-• the file was never generated, or
-• it was generated somewhere else, or
-• it was generated and later deleted/moved.
+Log lines that give it away ───────────────────────────
 
-The only things that influence that are (a) your next.config.js, (b) the build/post-build scripts, or (c) the project “Root Directory” setting in the Vercel dashboard.
+Vercel, by default, checks out the repo root:
+Cloning github.com/MeadowNova/ChatLLMLandingPag
+You then tell it to run every command in app/
+Running "install" command: cd app && npm ci
+…  
+Running "cd app && npx prisma migrate deploy --schema=./prisma/schema.prisma && npm run build"
+Prisma errors:
+Could not load --schema from provided path prisma/schema.prisma
+The schema clearly lives somewhere else (very likely /<repo-root>/prisma/schema.prisma, the location that worked in the previous deploy).
 
-Below is the shortest path I know to pinpoint which of those three is responsible and how to fix it.
+You therefore have a simple path/root-directory mismatch. Pick ONE of the two patterns below and stick to it.
 
-Reproduce the exact Vercel build locally
-1.1 From the project root run the identical command Vercel runs:
+──────────────────────────────────────── Pattern A – Keep repo root, stop using “cd app” ────────────────────────────────────────
 
-  npx vercel build --debug
+In your package.json at repo root: • “install” → "npm ci"
+• “build” → "npx prisma migrate deploy --schema=./prisma/schema.prisma && npm run build:next" (or whatever your Next.js build script is).
+• Remove all cd app && … prefixes.
 
- (The “--debug” flag shows every file copy Vercel performs.)
-1.2 When the command finishes, inspect what was produced:
+Delete any buildCommand you added in vercel.json that starts with cd app.
+Vercel will run the root-level build script automatically.
 
-  tree -L 2 .vercel/output
-  tree -L 2 .next
-  tree -L 2 app/.next         # the directory Vercel complained about
-1.3 If “routes-manifest.json” really is missing everywhere, the issue is in the Next.js build phase (steps 2–3 below).
-If the file exists but in a different path, the issue is a misplaced distDir or rootDirectory setting (step 4).
-If the file exists in the right path locally but Vercel still fails in the cloud, something deletes it during post-build (step 5).
+Make sure Next.js looks in the right place by either: • Removing distDir from next.config.js, or
+• Setting it to 'app/.next' only if you are certain you need that structure.
 
-Make sure Next.js is actually generating the manifest
-2.1 Run a plain Next.js build:
+Commit, push, redeploy. Prisma should now resolve ./prisma/schema.prisma successfully.
 
-  rm -rf .next
-  npm run build      # this runs: prisma generate && next build
-2.2 Look for the manifest:
+──────────────────────────────────────── Pattern B – Treat “app/” as the project root ────────────────────────────────────────
 
-  ls .next/routes-manifest.json
+Move every project file that the build needs under app/
+• app/prisma/schema.prisma
+• app/package.json, node_modules, etc.
+• Next.js source files already live there, so this usually just means moving the prisma folder.
 
- • If present → Next.js is fine – go to step 3.  
- • If absent   → Next.js never created it.  Nine times out of ten that
-   happens because “output: 'export'” is set.  That mode does a static
-   export and intentionally skips server files such as the manifest.
+Tell Vercel that the root directory is app (no manual cd needed):
+• Dashboard → Project → Settings → General → Root Directory → set to app.
 
-   Fix: remove “output: 'export'” (or change it to 'standalone').
-Confirm no one deletes the manifest after the build
-3.1 Grep your repo for anything that touches “.next” after the build:
+Update package.json inside app/ to have normal scripts (no leading cd).
 
-  grep -R "\.next" --exclude-dir=node_modules .
-3.2 Pay special attention to your “postbuild” script.
-In your logs the only command executed is
+In vercel.json (if you have one) remove the cd app prefixes; Vercel now runs from inside app/.
 
-   "postbuild": "prisma generate"
+Commit, push, redeploy. Prisma will look for ./prisma/schema.prisma relative to app/ and succeed.
 
- Prisma won’t touch .next, so if that’s all you have you can rule out
- deletion.  If you see any “rimraf”, “rm -rf .next”, or “next export”
- here – that is the culprit.
-Check for a distDir or rootDirectory mismatch
-4.1 In next.config.js:
+──────────────────────────────────────── Quick checklist ──────────────────────────────────────── ☐ Exactly one root directory strategy (repo root OR app/), never both.
+☐ Prisma schema path in scripts matches that root: ./prisma/schema.prisma.
+☐ No manual cd in buildCommand or npm scripts when Vercel root is set.
+☐ vercel.json lives inside the chosen root, not above it.
 
-  module.exports = {
-    distDir: 'app/.next',   // ← THIS is legal but often mis-set
-  }
-
- • If you have a custom distDir, verify it’s exactly “app/.next”.
-   A missing or extra segment (e.g. 'app/next' or 'build/.next')
-   will make Vercel look in the wrong folder.
-
- • Temporarily comment the distDir out and rebuild locally:
-
-     // distDir: 'app/.next',
-
-   If vercel build now passes, the path is wrong – fix or remove it.
-4.2 In the Vercel dashboard open
-Project → Settings → General → Root Directory.
-
- • If it is set to “app”, Vercel starts the build in /app, not in the
-   repository root.  Leave it on “app” OR remove the custom distDir, but
-   don’t do both.  Having both makes the manifest end up in
-   “/app/app/.next” while Vercel looks in “/app/.next”.
-Double-check Prisma generate is not running in the wrong folder
-Prisma uses the working directory it is invoked from. If someone changed “postbuild” to cd into another directory before running prisma generate, the shell might land inside “app/” and then back out, accidentally moving files. Make sure the script is exactly:
-
-"postbuild": "prisma generate"
-(no cd, no && rm -rf …).
-
-Once fixed, verify in CI
-Commit the change, push, and let Vercel rebuild.
-The build log should now show:
-
-Uploading build outputs...
-Build completed. Deployed to https://<your-url>.vercel.app
-Quick reference checklist
-☐ next.config.js does NOT set output:'export' (or it is intentional).
-☐ distDir is either undefined (default “.next”) or correct and unique.
-☐ Vercel “Root Directory” matches (repo root vs. /app).
-☐ No script (build, postbuild, prisma, custom) removes or moves .next.
-☐ After npm run build, .next/routes-manifest.json exists locally.
-☐ vercel build --debug also finds the manifest in the same place.
-
-Follow the list top-to-bottom; in >90 % of cases the problem is fixed by: • removing output:'export', OR
-• deleting an incorrect distDir entry, OR
-• aligning Vercel’s Root Directory with your repo structure.
-
-That’s all you need to get the build passing again. Good luck!
+Do that and the “file or directory not found” error disappears, letting the build continue to Next.js again.

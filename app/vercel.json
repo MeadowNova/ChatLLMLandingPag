@@ -1,0 +1,11 @@
+{
+  "framework": "nextjs",
+  "functions": {
+    "app/api/**/*.ts": {
+      "maxDuration": 30
+    },
+    "app/api/health/**/*.ts": {
+      "maxDuration": 10
+    }
+  }
+}
