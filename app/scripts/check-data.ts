@@ -17,8 +17,8 @@ async function main() {
   if (subscribers.length === 0) {
     console.log('No subscribers found.');
   } else {
-    subscribers.forEach((sub, index) => {
-      const interestNames = sub.interests.map(interest => interest.name).join(', ');
+    subscribers.forEach((sub: any, index: number) => {
+      const interestNames = sub.interests.map((interest: any) => interest.name).join(', ');
       console.log(`${index + 1}. ${sub.firstName} ${sub.lastName} (${sub.email}) - ${sub.experienceLevel} - [${interestNames}]`);
     });
   }
