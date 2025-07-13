@@ -101,7 +101,7 @@ export async function GET(request: NextRequest) {
       data: {
         totalViews,
         uniqueVisitors,
-        topPages: topPages.map(p => ({
+        topPages: topPages.map((p: any) => ({
           page: p.page,
           views: p._count.page
         })),
