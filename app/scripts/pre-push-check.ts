@@ -91,8 +91,8 @@ function validatePrismaSchema(): ValidationResult {
   }
   
   try {
-    // Check if Prisma can generate client
-    execSync('npx prisma generate --dry-run', { stdio: 'pipe' })
+    // Check if Prisma schema is valid
+    execSync('npx prisma validate', { stdio: 'pipe' })
   } catch (error) {
     result.errors.push('Prisma schema validation failed')
     result.passed = false

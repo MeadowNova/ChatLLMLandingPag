@@ -1,9 +1,13 @@
 /**
  * Environment Variable Validation
- * 
+ *
  * This utility validates that all required environment variables are present
  * and properly formatted for production deployment.
  */
+
+// Load environment variables
+import { config } from 'dotenv'
+config()
 
 interface RequiredEnvVars {
   DATABASE_URL: string
