@@ -78,7 +78,7 @@ export async function GET(request: NextRequest) {
         by: ['ipAddress'],
         where: whereClause,
         _count: true
-      }).then(results => results.length),
+      }).then((results: any[]) => results.length),
       
       // Top pages
       prisma.pageView.groupBy({
