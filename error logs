@@ -1,0 +1,112 @@
+[15:25:15.764] Running build in Washington, D.C., USA (East) – iad1
+[15:25:15.764] Build machine configuration: 2 cores, 8 GB
+[15:25:15.821] Retrieving list of deployment files...
+[15:25:15.825] Skipping build cache, deployment was triggered without cache.
+[15:25:16.148] Downloading 125 deployment files...
+[15:25:17.350] Running "vercel build"
+[15:25:17.783] Vercel CLI 44.3.0
+[15:25:18.521] Running "install" command: `npm ci`...
+[15:25:23.330] npm warn deprecated mumath@3.3.4: Redundant dependency in your project.
+[15:25:42.702] 
+[15:25:42.702] added 814 packages, and audited 815 packages in 24s
+[15:25:42.703] 
+[15:25:42.703] 82 packages are looking for funding
+[15:25:42.703]   run `npm fund` for details
+[15:25:42.704] 
+[15:25:42.704] found 0 vulnerabilities
+[15:25:42.750] Detected Next.js version: 14.2.30
+[15:25:42.752] Running "npx prisma migrate deploy --schema=/vercel/path0/prisma/schema.prisma && npm run build"
+[15:25:43.682] Environment variables loaded from ../.env
+[15:25:43.684] Prisma schema loaded from ../prisma/schema.prisma
+[15:25:43.700] Datasource "db": PostgreSQL database "postgres", schema "public" at "db.prisma.io:5432"
+[15:25:43.948] 
+[15:25:43.949] 2 migrations found in prisma/migrations
+[15:25:43.949] 
+[15:25:44.183] Applying migration `20250706185818_add_email_subscriber`
+[15:25:44.249] Applying migration `20250712000000_implement_enhanced_schema`
+[15:25:44.365] 
+[15:25:44.366] The following migration(s) have been applied:
+[15:25:44.366] 
+[15:25:44.366] migrations/
+[15:25:44.366]   └─ 20250706185818_add_email_subscriber/
+[15:25:44.366]     └─ migration.sql
+[15:25:44.366]   └─ 20250712000000_implement_enhanced_schema/
+[15:25:44.366]     └─ migration.sql
+[15:25:44.367]       
+[15:25:44.367] All migrations have been successfully applied.
+[15:25:44.553] 
+[15:25:44.555] > build
+[15:25:44.555] > prisma generate && next build
+[15:25:44.556] 
+[15:25:45.155] Environment variables loaded from .env
+[15:25:45.158] Prisma schema loaded from prisma/schema.prisma
+[15:25:45.904] 
+[15:25:45.904] ✔ Generated Prisma Client (v6.7.0) to ./node_modules/.prisma/client in 155ms
+[15:25:45.904] 
+[15:25:45.905] Start by importing your Prisma Client (See: https://pris.ly/d/importing-client)
+[15:25:45.905] 
+[15:25:45.905] Tip: Want to turn off tips and other hints? https://pris.ly/tip-4-nohints
+[15:25:45.905] 
+[15:25:45.949] ┌─────────────────────────────────────────────────────────┐
+[15:25:45.950] │  Update available 6.7.0 -> 6.11.1                       │
+[15:25:45.950] │  Run the following to update                            │
+[15:25:45.950] │    npm i --save-dev prisma@latest                       │
+[15:25:45.950] │    npm i @prisma/client@latest                          │
+[15:25:45.950] └─────────────────────────────────────────────────────────┘
+[15:25:46.690] Attention: Next.js now collects completely anonymous telemetry regarding usage.
+[15:25:46.691] This information is used to shape Next.js' roadmap and prioritize features.
+[15:25:46.692] You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+[15:25:46.692] https://nextjs.org/telemetry
+[15:25:46.692] 
+[15:25:46.750]   ▲ Next.js 14.2.30
+[15:25:46.750]   - Environments: .env
+[15:25:46.751] 
+[15:25:46.820]    Creating an optimized production build ...
+[15:26:03.104]  ✓ Compiled successfully
+[15:26:03.105]    Skipping linting
+[15:26:03.105]    Checking validity of types ...
+[15:26:12.173]    Collecting page data ...
+[15:26:13.574]    Generating static pages (0/11) ...
+[15:26:13.838]    Generating static pages (2/11) 
+[15:26:14.142]    Generating static pages (5/11) 
+[15:26:14.395]    Generating static pages (8/11) 
+[15:26:14.752]  ✓ Generating static pages (11/11)
+[15:26:14.896]    Finalizing page optimization ...
+[15:26:14.896]    Collecting build traces ...
+[15:26:19.440] 
+[15:26:19.443] Route (app)                              Size     First Load JS
+[15:26:19.443] ┌ ○ /                                    55.8 kB         153 kB
+[15:26:19.443] ├ ○ /_not-found                          873 B            88 kB
+[15:26:19.444] ├ ƒ /api/analytics                       0 B                0 B
+[15:26:19.444] ├ ƒ /api/analytics/page-view             0 B                0 B
+[15:26:19.444] ├ ○ /api/health                          0 B                0 B
+[15:26:19.444] ├ ○ /api/health/db                       0 B                0 B
+[15:26:19.444] ├ ƒ /api/subscribe                       0 B                0 B
+[15:26:19.445] ├ ○ /robots.txt                          0 B                0 B
+[15:26:19.445] └ ○ /sitemap.xml                         0 B                0 B
+[15:26:19.445] + First Load JS shared by all            87.1 kB
+[15:26:19.445]   ├ chunks/117-35b65a1d4103d0b9.js       31.6 kB
+[15:26:19.445]   ├ chunks/fd9d1056-baadd55f051afe6d.js  53.6 kB
+[15:26:19.446]   └ other shared chunks (total)          1.89 kB
+[15:26:19.446] 
+[15:26:19.446] 
+[15:26:19.446] ○  (Static)   prerendered as static content
+[15:26:19.446] ƒ  (Dynamic)  server-rendered on demand
+[15:26:19.447] 
+[15:26:19.466] 
+[15:26:19.466] > postbuild
+[15:26:19.467] > prisma generate
+[15:26:19.467] 
+[15:26:20.055] Environment variables loaded from .env
+[15:26:20.058] Prisma schema loaded from prisma/schema.prisma
+[15:26:20.517] 
+[15:26:20.517] ✔ Generated Prisma Client (v6.7.0) to ./node_modules/.prisma/client in 191ms
+[15:26:20.518] 
+[15:26:20.518] Start by importing your Prisma Client (See: https://pris.ly/d/importing-client)
+[15:26:20.518] 
+[15:26:20.518] Tip: Curious about the SQL queries Prisma ORM generates? Optimize helps you enhance your visibility: https://pris.ly/tip-2-optimize
+[15:26:20.518] 
+[15:26:20.576] Error: The file "/vercel/path0/app/.next/routes-manifest.json" couldn't be found. This is often caused by a misconfiguration in your project.
+[15:26:20.576] Learn More: https://err.sh/vercel/vercel/now-next-routes-manifest
+[15:26:20.884] 
+[15:26:23.357] Exiting build container
