@@ -1,4 +1,7 @@
 {
+  "buildCommand": "cd app && npm run build",
+  "outputDirectory": "app/.next",
+  "installCommand": "cd app && npm ci",
   "framework": "nextjs",
   "functions": {
     "app/api/**/*.ts": {
@@ -8,12 +11,7 @@
       "maxDuration": 10
     }
   },
-  "crons": [
-    {
-      "path": "/api/health/db",
-      "schedule": "0 */6 * * *"
-    }
-  ],
+
   "headers": [
     {
       "source": "/(.*)",
