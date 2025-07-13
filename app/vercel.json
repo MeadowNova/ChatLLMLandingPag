@@ -5,12 +5,7 @@
   "installCommand": "npm ci",
   "devCommand": "npm run dev",
 
-  "build": {
-    "env": {
-      "NEXT_PUBLIC_VERCEL_ENV": "@vercel-env",
-      "PRISMA_GENERATE_DATAPROXY": "true"
-    }
-  },
+
   "functions": {
     "app/api/**/*.ts": {
       "maxDuration": 30
