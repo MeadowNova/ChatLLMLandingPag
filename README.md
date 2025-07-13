@@ -2,6 +2,8 @@
 
 A modern Next.js landing page for ChatLLM Master Training Course by Abacus.AI.
 
+🚀 **Production Ready** - Deployed with Vercel Postgres integration
+
 ## 🚀 Quick Start
 
 ### Prerequisites
