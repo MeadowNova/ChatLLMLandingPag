@@ -1,14 +1,14 @@
 {
-  "buildCommand": "npm run vercel-build",
-  "outputDirectory": ".next",
+  "buildCommand": "cd app && npm run build",
+  "outputDirectory": "app/.next",
   "framework": "nextjs",
-  "installCommand": "npm ci",
-  "devCommand": "npm run dev",
+  "installCommand": "cd app && npm ci",
+  "devCommand": "cd app && npm run dev",
   "functions": {
-    "app/api/**/*.ts": {
+    "app/app/api/**/*.ts": {
       "maxDuration": 30
     },
-    "app/api/health/**/*.ts": {
+    "app/app/api/health/**/*.ts": {
       "maxDuration": 10
     }
   },
