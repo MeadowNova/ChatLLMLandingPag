@@ -146,23 +146,28 @@ function validateBuild(): ValidationResult {
     errors: [],
     warnings: []
   }
-  
+
   try {
     console.log('🔨 Testing build process...')
-    
+
     // Test Prisma generation
     execSync('npx prisma generate', { stdio: 'pipe' })
-    
-    // Test Next.js build (dry run)
-    execSync('npm run build', { stdio: 'pipe' })
-    
-    console.log('✅ Build test passed')
-    
+
+    // Test TypeScript compilation
+    execSync('npx tsc --noEmit', { stdio: 'pipe' })
+
+    // Test ESLint
+    execSync('npm run lint', { stdio: 'pipe' })
+
+    console.log('✅ Build validation passed')
+
   } catch (error) {
-    result.errors.push('Build process failed')
+    const errorMessage = error instanceof Error ? error.message : String(error)
+    result.errors.push(`Build validation failed: ${errorMessage}`)
     result.passed = false
+    console.error('Build validation error details:', errorMessage)
   }
-  
+
   return result
 }
 

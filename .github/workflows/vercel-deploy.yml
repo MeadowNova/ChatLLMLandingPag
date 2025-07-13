@@ -98,5 +98,17 @@ jobs:
         
       - name: Run post-deployment health check
         run: |
+          echo "Waiting for deployment to be ready..."
           sleep 30
-          curl -f ${{ secrets.PRODUCTION_URL }}/api/health/db || exit 1
+          if [ -n "${{ secrets.PRODUCTION_URL }}" ]; then
+            echo "Testing health endpoint at ${{ secrets.PRODUCTION_URL }}"
+            # Test basic health endpoint first
+            curl -f ${{ secrets.PRODUCTION_URL }}/api/health || exit 1
+            # Test database health endpoint
+            curl -f ${{ secrets.PRODUCTION_URL }}/api/health/db || exit 1
+            echo "✅ Health checks passed"
+          else
+            echo "⚠️ PRODUCTION_URL secret not set, skipping health check"
+            echo "Please set PRODUCTION_URL secret in GitHub repository settings"
+            exit 1
+          fi

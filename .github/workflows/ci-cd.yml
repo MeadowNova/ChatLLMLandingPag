@@ -119,8 +119,12 @@ jobs:
         run: |
           echo "Waiting for deployment to be ready..."
           sleep 30
-          # You'll replace this URL with your actual domain
-          curl -f https://your-domain.vercel.app/api/health/db || echo "Health check failed, but deployment may still be successful"
+          if [ -n "${{ secrets.PRODUCTION_URL }}" ]; then
+            echo "Testing health endpoint at ${{ secrets.PRODUCTION_URL }}"
+            curl -f ${{ secrets.PRODUCTION_URL }}/api/health/db || echo "Health check failed, but deployment may still be successful"
+          else
+            echo "PRODUCTION_URL secret not set, skipping health check"
+          fi
 
   # Job 4: Performance Check (only on PRs)
   performance-check:
