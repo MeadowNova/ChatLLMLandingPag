@@ -7,6 +7,7 @@ import { Toaster } from '@/components/ui/toaster'
 import { WebVitals } from '@/components/web-vitals'
 import Script from 'next/script'
 import { Analytics } from '@vercel/analytics/next';
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -244,6 +245,7 @@ export default function RootLayout({
         >
           {children}
           <Analytics />
+          <SpeedInsights />
           <Toaster />
           <WebVitals />
         </ThemeProvider>
